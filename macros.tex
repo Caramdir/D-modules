@@ -1,0 +1,127 @@
+%% basic algebra %%%
+\newcommand\NN{{\mathbb{N}}}
+\newcommand\ZZ{{\mathbb{Z}}}
+\newcommand\QQ{{\mathbb{Q}}}
+\newcommand\CC{{\mathbb{C}}}
+\newcommand{\op}{{\mathrm{op}}}             % opposite ring
+\newcommand{\gr}{\operatorname{gr}}         % associated graded
+\DeclareMathOperator\supp{supp}             % support
+% Quotient #1 / #2.
+\newcommand\rquot[2]{%
+    \mathchoice%
+        {\left.#1\kern-0.2ex\middle/\kern-0.3ex\lower0.7ex\hbox{$\displaystyle #2$}\right.}%
+        {\left.#1\middle/#2\right.}%
+        {\left.#1\middle/#2\right.}%
+        {\left.#1\middle/#2\right.}%
+}
+\newcommand\dual{∨}
+\newcommand\SymAlg{\operatorname{Sym}}
+\newcommand\ideal\mathfrak
+
+%%% basic category theory %%%
+\newcommand\cat{\mathbf}
+\newcommand\oppcat[1]{#1^{\mathrm{op}}} % opposite category
+\newcommand{\catAb}{\cat{Ab}}
+\newcommand\catVect[1][]{\cat{Vect}_{#1}}
+\newcommand\id[1][]{{\mathrm{Id}_{#1}}}   % identity map
+\DeclareMathOperator\Hom{Hom}       
+\DeclareMathOperator\Maps{Maps}       
+\DeclareMathOperator\Aut{Aut}       
+\DeclareMathOperator\End{End}       
+\DeclareMathOperator\coker{coker}   % cokernel       
+\DeclareMathOperator\im{im}         % image
+\NewDocumentCommand \catModules {O{} O{} m} {       % modules
+    \cat{Mod}^{#1}_{#2}(#3)
+}
+
+%%% homological algebra and derived categories %%%
+\newcommand\LL{{\mathbb{L}}}
+\newcommand\RR{{\mathbb{R}}}
+\newcommand\Lotimes{\mathbin{\overset{\LL}{\otimes}}}
+\DeclareMathOperator\RHom{\RR Hom}
+\DeclareMathOperator\Tor{Tor}
+\DeclareMathOperator\Ext{Ext}
+
+\newcommand{\catComplexes}[1]{\cat{Kom}(#1)}
+\newcommand{\catHomotopy}[1]{\cat{K}(#1)}
+\DeclareMathOperator\cone{cone}
+
+\newcommand{\catD}[2][]{\mathrm{D}^{#1}(#2)}
+\newcommand{\catDp}[1]{\catD[+]{#1}}
+\newcommand{\catDm}[1]{\catD[-]{#1}}
+\newcommand{\catDb}[1]{\catD[\mathrm{b}]{#1}}
+
+%%% algebraic geometry %%%
+
+\DeclareMathOperator\Spec{Spec}
+\newcommand\sheaf\mathcal
+\newcommand\sO{\sheaf{O}}               % structure sheaf
+\newcommand\tb[1]{\Theta_{#1}}          % tangent bundle
+\newcommand\ctb[1]{\Omega^1_{#1}}       % cotangent bundle
+\newcommand{\canon}{\omega}             % canonical line bundle
+\newcommand\res[2]{\mathchoice{\left.#1\right|_{#2}}{#1|_{#2}}{#1|_{#2}}{#1|_{#2}}}     % restrictions
+\newcommand\sheafHom{\sheaf{H\mkern-1.2mu o\mkern-2.1mu m}}
+\newcommand\sheafEnd{\sheaf{E\mkern-1.2mu n\mkern-2mu d}}
+\newcommand\sheafExt{\sheaf{E\mkern-1.2mu x\mkern-0.8mu t}}
+\DeclareMathOperator\RsheafHom{\RR \sheafHom}
+\let\sheafRHom\RsheafHom
+\newcommand\codim{\operatorname{codim}}
+\newcommand\as[2][]{\mathbb A^{#2}_{#1}}        % affine space
+\newcommand\ps[2][]{\mathbb P^{#2}_{#1}}        % projective space
+\newcommand\pt{\mathrm{pt}}                     % a point
+
+
+%%% D-modules %%%
+
+\newcommand\sD{\sheaf{D}}               % differential operators
+\newcommand\sDop{\sD^\op}
+
+\newcommand\catDMod[2][]{\catModules[][#1]{\sD_{#2}}}
+\newcommand\catrDMod[2][]{\catModules[][#1]{\sDop_{#2}}}
+\newcommand\catDModqc[1]{\catDMod[\mathrm{qc}]{#1}}
+\newcommand\catDModcoh[1]{\catDMod[\mathrm{coh}]{#1}}
+
+%%% derived categories of D-modules
+
+\newcommand{\catDDMod}[2][]{\mathrm{D}^{#1}(\sD_{#2})}
+\newcommand{\catDpDMod}[1]{\catDDMod[+]{#1}}
+\newcommand{\catDmDMod}[1]{\catDDMod[-]{#1}}
+\newcommand{\catDbDMod}[1]{\catDDMod[\mathrm{b}]{#1}}
+\newcommand{\catDDModqc}[2][]{\mathrm{D}^{#1}_{\mathrm{qc}}(\sD_{#2})}
+\newcommand{\catDpDModqc}[1]{\catDDModqc[+]{#1}}
+\newcommand{\catDmDModqc}[1]{\catDDModqc[-]{#1}}
+\newcommand{\catDbDModqc}[1]{\catDDModqc[\mathrm{b}]{#1}}
+\newcommand{\catDDModcoh}[2][]{\mathrm{D}^{#1}_{\mathrm{coh}}(\sD_{#2})}
+\newcommand{\catDpDModcoh}[1]{\catDDModcoh[+]{#1}}
+\newcommand{\catDmDModcoh}[1]{\catDDModcoh[-]{#1}}
+\newcommand{\catDbDModcoh}[1]{\catDDModcoh[\mathrm{b}]{#1}}
+
+\newcommand{\catDbf}[1]{\mathrm{D}^{\mathrm{b}}_{\mathrm{f}}(#1)}
+
+\DeclareMathOperator\Lie{Lie}   % lie derivative
+
+\DeclareMathOperator\DR{DR}
+
+\newcommand{\DD}{\mathbb{D}}
+\DeclareMathOperator\SSupp{SS}
+
+%%% misc %%%
+\newcommand\isoto\similarrightarrow % isomorphisms
+\newcommand\onto\twoheadrightarrow  % surjections
+\newcommand\from\leftarrow
+\newcommand\cocolon{%                   % colon on the right side (i.e. for an adjunction)
+    \nobreak \mskip 6muplus1mu \mathpunct {}\nonscript \mkern -\thinmuskip{:}\mskip 2mu\relax%
+}
+\newcommand{\stackcite}[1]{\cite[\href{http://stacks.math.columbia.edu/tag/#1}{Tag~\textsc{\MakeLowercase{#1}}}]{stacks-project}}
+
+% ----
+
+%
+%
+%\newcommand{\pr}{\operatorname{pr}}
+%
+%\renewcommand{\catDbCoh}[1]{\mathrm{D}^{\mathrm{b}}_{\mathrm{coh}}(#1)}
+%\renewcommand{\catDQCoh}[1]{\mathrm{D}_{\mathrm{qc}}(#1)}
+%\newcommand{\catDpQCoh}[1]{\mathrm{D}^+_{\mathrm{qc}}(#1)}
+%\newcommand{\catDmQCoh}[1]{\mathrm{D}^-_{\mathrm{qc}}(#1)}
+
