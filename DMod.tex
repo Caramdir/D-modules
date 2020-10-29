@@ -765,7 +765,7 @@ Recall that by Fact~\ref{fact:coherent} a D-module $\sheaf M \in \catDModqc{X}$ 
 \end{Theorem}
 
 \begin{proof}
-    I suffices to show that for $\sheaf M \in \catDModcoh{X}$ the direct image $f_\bullet\sheaf M$ has coherent cohomology sheaves.
+    It suffices to show that for $\sheaf M \in \catDModcoh{X}$ the direct image $f_\bullet\sheaf M$ has coherent cohomology sheaves.
     In the exercises we show that any such $\sheaf M$ has a bounded resolution $\mathrm{Sp}_k^\bullet$ consisting of D-modules of the form $\sD_X \otimes_{\sO_X} \sheaf F^j$ with $\sheaf F^j$ a coherent $\sO_X$-module.
     From the resulting spectral sequence
     \[
@@ -803,7 +803,8 @@ To obtain a left D-module we apply the side-changing operations.
 \end{Remark}
 
 \begin{Example}
-    Let $P \in \sD_X$ and consider $\sheaf M = \sD_X/\sD_XP$.
+    Consider $X = \as 1$.
+    Let $P \in \sD_X$ and set $\sheaf M = \sD_X/\sD_XP$.
     Then there is a free resolution
     \[
         0 \to \sD_X \xrightarrow{\cdot P} \sD_X \to \sheaf M \to 0
@@ -820,7 +821,7 @@ To obtain a left D-module we apply the side-changing operations.
         \sheafExt^0_{\sD_X}(\sheaf M,\, \sD_X) &\cong \ker (\sD_X \xrightarrow{P\cdot} \sD_X) = 0 \\
         \sheafExt^1_{\sD_X}(\sheaf M,\, \sD_X) &\cong \coker (\sD_X \xrightarrow{P\cdot} \sD_X) = \sD_X/P\sD_X.
     \end{align*}
-    Applying the shift (and switching back to left modules), we see that $\DD(\sheaf M)$ is concentrated in cohomological degree $0$.
+    Applying the shift (and switching back to left modules\footnote{The corresponding left module is $\sD_X/\sD_XP^*$, where $P^*$ is the formal adjoint to $P$: if $P = \sum_\alpha f_{\alpha}(\underline x) \partial^\alpha$, then $P^* = \sum_\alpha (-\partial)^\alpha f_{\alpha}(\underline{x})$.}), we see that $\DD(\sheaf M)$ is concentrated in cohomological degree $0$.
 \end{Example}
 
 \begin{Exercise}
@@ -843,7 +844,7 @@ To obtain a left D-module we apply the side-changing operations.
 
 \begin{proof}
     Claim \ref{it:thm:dualizing-complex:coh} is clear. 
-    Assertion \ref{it:thm:dualizing-complex:dim} is shown with filtered ring methods which will discuss later.
+    Assertion \ref{it:thm:dualizing-complex:dim} is shown with filtered ring methods, see Corollary~\ref{cor:finite-inj-dim}.
     Let us show \ref{it:thm:dualizing-complex:dual}: we need to show that the canonical map
     \[
         \sheaf M \to \RsheafHom_{\sDop_X}\bigl(\RsheafHom_{\sD_X}(\sheaf M,\, \sD_X),\, \sD_X\bigr) \cong \DD^2\sheaf M
@@ -867,7 +868,7 @@ Due to time constraints we will not be able to prove the following important the
     \]
     and
     \begin{align*}
-        \sheafHom_{\sD_X}(\sheaf M\, \sheaf N) &\cong 
+        \sheafRHom_{\sD_X}(\sheaf M\, \sheaf N) &\cong 
         (\canon_X \Lotimes_{\sO_X} \DD\sheaf M) \Lotimes_{\sD_X} \sheaf N[-\dim X] \\&\cong
         \canon_X \Lotimes_{\sD_X} (\DD\sheaf M \Lotimes_{\sO_X} \sheaf N)[-\dim X] \\&\cong
         \sheafRHom_{\sD_X}(\sO_X,\, \DD\sheaf M \Lotimes_{\sO_X} \sheaf N).
@@ -883,7 +884,11 @@ Due to time constraints we will not be able to prove the following important the
     Let $f\colon X \to Y$ be a smooth morphism and $\sheaf M \in \catDbDModcoh{Y}$.
     Then $f^!\sheaf M \in \catDbDModcoh{X}$ and
     \[
-        \DD_X(f^!\sheaf M) \cong f^!(\DD_Y \sheaf M).
+        \DD_X(f^*\sheaf M) \cong f^*(\DD_Y \sheaf M),
+    \]
+    or equivalently
+    \[
+        \DD_X(f^!\sheaf M)[2\dim X] \cong f^!(\DD_Y \sheaf M)[2\dim Y].
     \]
 \end{Theorem}
 
@@ -898,7 +903,7 @@ Due to time constraints we will not be able to prove the following important the
     \[
         f_\bullet \DD_X \isoto \DD_Y f_\bullet
     \]
-    of functors $\catDbDModcoh{X} \to \catDbDModcoh{Y}$.
+    of functors $\catDbDModcoh{X} \to \oppcat{\catDbDModcoh{Y}}$.
 \end{Theorem}
 
 \begin{proof}[Idea of proof]
@@ -997,7 +1002,7 @@ If additionally $\gr A$ is left noetherian, then $(L,F)$ is also good.
 
 Given two filtered $A$-modules $(M,F)$ and $(N,F)$ we define a filtration of the abelian group $\Hom_A(M,N)$ by
 \[
-    F_p\Hom_A(M,N) = \{f \in \Hom_A(M,N) : f(F_qM) \subset F_{q+p}N \text{ for all } q \in \ZZ\}.
+    F_p\Hom_A(M,N) = \bigl\{f \in \Hom_A(M,N) : f(F_qM) \subset F_{q+p}N \text{ for all } q \in \ZZ\bigr\}.
 \]
 One has to be careful that the canonical homomorphism
 \[
@@ -1010,7 +1015,7 @@ is in general neither injective nor surjective.
     Then there exists a good filtration on the right $A$-modules $\Ext_A^i(M,A)$ such that $\gr \Ext^i_A(M,N)$ is isomorphic to a subquotient of $\Ext^i_{\gr A}(\gr M,\, \gr A)$ as a right $\gr A$-module.
 \end{Lemma}
 
-\begin{Corollary}
+\begin{Corollary}\label{cor:finite-inj-dim}
     $\sD_X$ has finite injective dimension.
 \end{Corollary}
 
@@ -1032,14 +1037,16 @@ is in general neither injective nor surjective.
     The weak global dimension\footnote{I.e., the supremum of the set of weak(=flat) dimensions of all $\sD_X$-modules. Since $\sD_X$ is noetherian the left and right weak global dimensions coincide.} of $\sD_X$ is at most $2\dim X$.
 \end{Corollary}
 
+\iffalse
+
 \subsection{Singular support}
 
 From now on we assume that $\gr A$ is a commutative Noetherian ring.
 For a good filtered $A$-module $(M,F)$ we can consider the support of its associated graded,
 \[
-    \supp(\gr^F M) \subseteq \Spec \gr A,
+    \supp(\gr^F M) \subseteq \Spec(\gr A),
 \]
-that is, those prime ideals $\ideal p \in \Spec \gr A$ such that $(\gr^F M)_{\ideal p} \ne 0$.
+that is, those prime ideals $\ideal p \in \Spec(\gr A)$ such that $(\gr^F M)_{\ideal p} \ne 0$.
 
 \begin{Lemma}
     The set $\supp(\gr^F M)$ does not depend on the choice of good filtration $F$ on $M$.
@@ -1123,8 +1130,6 @@ It states in which range the cohomology module of the dual of a given module lie
         \item $d\bigl(\Ext^{j(M)}_A(M,\, A)\bigr) = d(M)$.
     \end{enumerate}
 \end{Theorem}
-
-\iffalse
 
 \section{Characteristic varieties and holonomicity}
 
