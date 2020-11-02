@@ -204,6 +204,7 @@ This will be of particular importance in the next sections when we define variou
     \[
         \catDb{\catDModqc{X}} \to \catDbDModqc{X}
     \]
+    and
     \[
         \catDb{\catDModcoh{X}} \to \catDbDModcoh{X}
     \]
@@ -367,7 +368,7 @@ As one commonly works with \emph{left} D-modules, we use the transfer modules to
 \[
     \sheaf M \mapsto \canon_Y^\dual \otimes_{\sO_Y} f_*( (\canon_X \otimes_{\sO_X} \sheaf M) \otimes_{\sD_X} \sD_{X \to Y} ).
 \]
-To make this a bit less unwieldy, we use Lemma~\ref{lem:tensor_product_switching} and the projection formula \cite[Exercise~II.5.1]{Hartshorne:AG} to rewrite the result as
+To make this a bit less unwieldy, we use Lemma~\ref{lem:tensor_product_switching} and the projection formula \cite[Exercise~\RomanNum{II}.5.1]{Hartshorne:AG} to rewrite the result as
 \begin{align*}
     \canon_Y^\dual \otimes_{\sO_Y} f_*( (\canon_X \otimes_{\sO_X} \sheaf M) \otimes_{\sD_X} \sD_{X \to Y} ) & \cong
     \canon_Y^\dual \otimes_{\sO_Y} f_*( (\canon_X \otimes_{\sO_X} \sD_{X \to Y}) \otimes_{\sD_X} \sheaf M ) \\ &\cong
@@ -933,7 +934,7 @@ Moreover, we will see that coherent D-modules can be endowed with a \enquote{goo
 In this section we will briefly outline some constructions and results about graded rings and their modules.
 Useful references are \cite[Appendix~D]{HottaTakeuchiTanisaki:2008:DModulesPerverseSheavesRepresentationTheory} and \cite{Bjoerk:1979:RingsOfDifferentialOperators}.
 
-\begin{Definition}
+\begin{Definition}\label{def:filtered-module}
     A \emph{filtered ring} $(A,F)$ is a ring $A$ together with collection $F_\ell A$, $\ell \in \ZZ_\ell$ of additive subgroups of $A$ such that
     \begin{enumerate}
         \item $F_\ell A = 0$ for $\ell < 0$,
@@ -1037,8 +1038,6 @@ is in general neither injective nor surjective.
     The weak global dimension\footnote{I.e., the supremum of the set of weak(=flat) dimensions of all $\sD_X$-modules. Since $\sD_X$ is noetherian the left and right weak global dimensions coincide.} of $\sD_X$ is at most $2\dim X$.
 \end{Corollary}
 
-\iffalse
-
 \subsection{Singular support}
 
 From now on we assume that $\gr A$ is a commutative Noetherian ring.
@@ -1103,7 +1102,7 @@ For a complex $M \in \catDbf{A}$ we set
     \SSupp(M) = \bigcup_i \SSupp(H^i(M)).
 \]
 
-\begin{Proposition}
+\begin{Proposition}\label{prop:ss-of-dual}
     Let $M \in \catDbf{A}$.
     Then 
     \[
@@ -1118,7 +1117,7 @@ The D-module version of the following theorem will be very useful in the next se
 It is deduced from the corresponding statements for commutative rings.
 It states in which range the cohomology module of the dual of a given module lie, and gives an estimate on how big these cohomologies are.
 
-\begin{Theorem}
+\begin{Theorem}\label{thm:Ext-dim-estimates-ring}
     For a finitely generated $A$-module $M$ set
     \[
         j(M) = \min\bigl\{ i : \Ext_A^i(M,\, A) \ne 0 \bigr\}
@@ -1133,17 +1132,246 @@ It states in which range the cohomology module of the dual of a given module lie
 
 \section{Characteristic varieties and holonomicity}
 
+Let us apply the definitions from the last section to D-modules.
+A filtration on a D-module $\sheaf M \in \catDModqc{X}$ is an increasing collection of $\sO_X$-quasi-coherent $\sO_X$-submodules $F_i\sheaf M$ of $\sheaf M$ satisfying conditions analogous to those of Definition~\ref{def:filtered-module}.
+Such a filtration is \emph{good} if $\gr^F \sheaf M$ is coherent over $\gr \sD_X \cong \pi_*\sO_{T^*X}$.
+We note that this is equivalent to the $F_i\sheaf M$ being $\sO_X$-coherent for each $i$ and the existence if $i_0 \in \ZZ$ satisfying
+\[
+    (F_j\sD_X)(F_i\sheaf M) = F_{i+j}\sheaf M \qquad \text{for all } j \ge 0,\, i \ge i_0.
+\]
+By Proposition~\ref{prop:good-filtration} every coherent $\sD_X$-module possesses local good filtrations.
+
+\begin{Proposition}
+    Let $X$ be a smooth (algebraic!) variety.
+    A module $\sheaf M \in \catDModqc{X}$ is coherent if and only if it admits a global good filtration.
+\end{Proposition}
+
+\begin{Remark}
+    This proposition does not hold in the analytic context: on an analytic variety not every coherent D-modules admits a global good filtrations.
+    However, as Definition~\ref{def:holonomic} is local in nature, one can still define holonomicity.
+    One can show that every holonomic D-module on a smooth analytic variety admits a global good filtration \cite[Theorem~\RomanNum{II}.3.1]{Malgrange:2004:OnIrregularHolonomicDModules}.
+\end{Remark}
+
+\begin{proof}
+    If $\sheaf M$ admits a good filtration, then by Proposition~\ref{prop:good-filtration} it is locally finitely generated and hence coherent.
+    Conversely, if $\sheaf M$ is coherent, then by Lemma~\ref{lem:coherent-global-generation} below there exists an $\sO$-coherent $\sO_X$-submodule $\sheaf F$ of $\sheaf M$ such that $\sD_X\sheaf F = \sheaf M$.
+    The filtration defined by $F_i\sheaf M = (F_i\sD_X)\sheaf F$ is a global good filtration of $\sheaf M$.
+\end{proof}
+
+\begin{Lemma}\label{lem:coherent-global-generation}
+    A coherent $\sD_X$-module (on a smooth algebraic variety) is globally generated by a coherent $\sO_X$-submodule.
+\end{Lemma}
+
+\begin{proof}
+    Let $\sheaf M$ be $\sD_X$-coherent.
+    Then it is locally finitely generated.
+    Hence we can pick (finitely many!) open subsets $U_i$ of $X$ and coherent $\sO_X$-submodules $\sheaf F_i \subseteq \res{\sheaf M}{U_i}$ such that each $\res{\sheaf M}{U_i}$ is generated by $\sheaf F_i$.
+    Pick coherent $\sO_X$-submodules $\widetilde{\sheaf F}_i$ of the quasi-coherent $\sO_X$-module $\sheaf M$ such that $\res{\widetilde{\sheaf F}_i}{U_i} = \sheaf F_i$ \cite[Exercise~\RomanNum{II}.5.15]{Hartshorne:AG}.
+    Then $\sheaf M$ is generated by $\sum_i \widetilde{\sheaf F}_i$. 
+\end{proof}
+
+\begin{Definition}
+    Let $\sheaf M$ be a coherent $\sD_X$-module endowed with a good filtration $F$.
+    The support of the coherent $\sO_{T^*X}$-module
+    \begin{equation}\label{eq:graded-on-cotangent}
+        \sO_{T^*X} \otimes_{\pi^{-1}\pi_*\sO_{T^*X}} \pi^{-1}(\gr^F\sheaf M)
+    \end{equation}
+    is called the \emph{characteristic variety} (or sometimes \enquote{singular support}) of $\sheaf M$ and is denoted by $\Ch(\sheaf M)$.
+\end{Definition}
+
+As before, the characteristic variety does not depend on the choice of a good filtration on $\sheaf M$.
+Since the $\sO_{T^*X}$-module~\eqref{eq:graded-on-cotangent} is graded, the characteristic variety is a conical (i.e., $\mathbb{G}_m$-equivariant) algebraic subset of $T^*X$.
+For $\sheaf M \in \catDbDModcoh{X}$ we set 
+\[
+    \Ch(\sheaf M) = \bigcup_{i \in \ZZ} \Ch(H^i\sheaf M).
+\]
+
+\begin{Example}\leavevmode
+    \begin{itemize}
+        \item Clearly $\Ch(\sD_X) = T^*X$.
+        \item If $\sheaf M$ is an integrable connection, then the two-step filtration
+            \[
+                F_i\sheaf M = \begin{cases} 0, & \text{if }i < 0, \\ \sheaf M & \text{if } i \ge 0 \end{cases}
+            \]
+            is good. Thus $\Ch(\sheaf M)$ is the zero section $X = T_X^*X$ in $T^*X$.
+        \item Let $i\colon \{0\} \hookrightarrow \as 1$ and $\sheaf M = i_\bullet \CC = \CC[\partial]$.
+            Then the degree filtration is good and hence $\Ch(\sheaf M) = \pi^{-1}(0) = T^*_{0}X$.
+            \qedhere
+    \end{itemize}
+\end{Example}
+
+\begin{Exercise}
+    Let $\sheaf M$ be a coherent $\sD_X$-module with $\Ch(\sheaf M) \subseteq X = T^*_XX$.
+    Show that $\sheaf M$ is an integrable connection.
+\end{Exercise}
+
+\begin{Exercise}
+    Let $i\colon Z \hookrightarrow X$ be a closed embedding.
+    Let
+    \[  
+        \begin{tikzcd}
+            & i^*(T^*X) = Z \otimes_X T^*X \arrow[dl, "\rho"] \arrow[dr, "\varpi"] & \\
+            T^*Z & & T^*X
+        \end{tikzcd}
+    \]
+    be the natural morphisms induced by $i$.
+    Let $\sheaf M$ be a coherent $\sD_Z$-module.
+    Show that
+    \[
+        \Ch(i_\bullet \sheaf M) = \varpi(\rho^{-1}\Ch(\sheaf M)).
+    \]
+\end{Exercise}
+
+\subsection{Dimension estimates}
+
+Theorem~\ref{thm:Gabber} immediately implies that the characteristic variety of a coherent D-module is co-isotropic with respect to the natural symplectic structure on $T^*X$.
+As a consequence we get the following dimension estimate (which can be proven without resorting to Theorem~\ref{thm:Gabber}).
+
+\begin{Theorem}[Bernstein's inequality]
+    Let $\sheaf M$ be a coherent $\sD_X$-module.
+    Then for any irreducible component $\Lambda$ of $\Ch(M)$ we have
+    \[
+        \dim \Lambda \ge \dim X.
+    \]
+    In particular any non-zero coherent $\sD_X$-module has a characteristic variety of dimension at least $\dim X$.
+\end{Theorem}
+
+Reformulating Proposition~\ref{prop:ss-of-dual} and Theorem~\ref{thm:Ext-dim-estimates-ring} for D-modules gives the following estimates.
+\begin{Proposition}\label{prop:Ext-dim-estimates-ring}
+    Let $\sheaf M$ be a coherent $\sD_X$-module.
+    Then,
+    \begin{enumerate}
+        \item $\codim_{T^*X}\Ch(\sheafExt^i_{\sD_X}(\sheaf M,\, \sD_X)) \ge i$,
+        \item $\sheafExt_{\sD_X}^i(\sheaf M, \sD_X) = 0$ for $i < \codim_{T^*X}\Ch(\sheaf M)$,
+        \item $\dim \Ch(\RsheafHom(\sheaf M,\, \sD_X)) = \dim \Ch(\sheaf M)$.
+    \end{enumerate}
+\end{Proposition}
+
+We note that the last statement only gives an upper bound for the characteristic varieties of any cohomology module of $\DD\sheaf M$.
+It follows that
+\begin{enumerate}
+    \item $H^i(\DD\sheaf M) = 0$ unless $-(\dim X-\codim_{T^*X}\Ch(\sheaf M)) \le i \le 0$,
+    \item $\codim_{T^*X}\Ch(H^i(\DD\sheaf M)) \ge \dim X + i$,
+    \item $\dim \Ch(\DD\sheaf M) = \dim \Ch(\sheaf M)$.
+\end{enumerate}
+
+\begin{Exercise}
+    Show that for any affine open subset $U$ of $X$ the ring $\sD_X(U)$ has left and right global dimension $\dim X$.
+    Deduce that any $\sheaf M \in \catDModqc{X}$ has a locally projective resolution of length at most $\dim X$.
+\end{Exercise}
+
+\subsection{Holonomic modules}
+
+\begin{Definition}\label{def:holonomic}
+    A coherent $\sD_X$-module $\sheaf M$ is called \emph{holonomic} of $\sheaf M = 0$ or $\dim \Ch(\sheaf M) = \dim X$.
+    We write $\catDModhol{X}$ for the corresponding full subcategory of $\catDModcoh{X}$ and $\catDbDModhol{X}$ for the full subcategory of $\catDbDModcoh{X}$ consisting of complexes with holonomic cohomology modules.
+\end{Definition}
+
+\begin{Lemma}
+    If
+    \[
+        0 \to \sheaf L \to \sheaf M \to \sheaf N \to 0
+    \]
+    is a short exact sequence of coherent $\sD_X$-modules, then $\sheaf M$ is holonomic if and only if $\sheaf L$ and $\sheaf N$ are holonomic.
+    In other words $\catDModhol{X}$ is a thick subcategory of $\catDModcoh{X}$.
+
+    Further, $\catDModhol{X}$ is artinian, i.e., every holonomic module satisfies the descending chain condition for submodules.
+\end{Lemma}
+
+\begin{proof}
+    The first statement follows form $\Ch(\sheaf M) = \Ch(\sheaf N) \cup \Ch(\sheaf L)$.
+    The second can be shown considering the characteristic cycle of a module, i.e., refining the characteristic variety with multiplicities.
+\end{proof}
+
+\begin{Fact}
+    The natural functor
+    \[
+        \catDb{\catDModhol{X}} \to \catDbDModhol{X}
+    \]
+    is an equivalence.
+\end{Fact}
+
+From Proposition~\ref{prop:Ext-dim-estimates-ring} we immediately obtain the following statement.
+
+\begin{Proposition}
+    Let $\sheaf M \in \catDModcoh{X}$ be a coherent $\sD_X$-module.
+    Then,
+    \begin{enumerate}
+        \item $\sheaf M$ is holonomic if and only if $H^i(\DD\sheaf M) = 0$ for $i \ne 0$.
+        \item $\sheaf M$ is holonomic if and only of $\DD\sheaf M$ is holonomic.
+    \end{enumerate}
+\end{Proposition}
+
+The following proposition is central in the study of holonomic D-modules as it allows for inductive arguments.
+
+\begin{Proposition}\label{prop:generically-integrable-connection}
+    Every holonomic $\sD_X$-module is generically an integrable connection.
+    In other words, for every $\sheaf M \in \catDModhol{X}$ there exists a dense open subvariety $U$ of $X$ such that $\res{\sheaf M}{U}$ is $\sO_U$-coherent.
+\end{Proposition}
+
+\begin{proof}
+    Set $S = \Ch(\sheaf M) \setminus T^*X_X$.
+    Let $\pi \colon T^*X \to X$ be the projection.
+    If $S$ is empty, then $\sheaf M$ is already $\sO_X$-coherent.
+    Otherwise, since $\Ch(\sheaf M)$ is conical, each fiber of $\pi\colon S \to \pi(S)$ has dimension at least $1$.
+    Thus, as $\sheaf M$ is holonomic, we have
+    \[
+        \dim \pi(S) \lneq \dim S \le \dim X.
+    \]
+    In follows that the complement of $\pi(S)$ must contain an open subset $U$.
+    By construction $\res{\sheaf M}{U}$ is $\sO_U$-coherent.
+\end{proof}
+
+The following important result will be proven in the exercises.
+
+\begin{Proposition}\label{prop:extension-of-holonomic}
+    Let $\sheaf M \in \catDModqc{X}$ and let $U \subset X$ be open.
+    Assume we are given a holonomic submodule $\sheaf N$ of $\res{\sheaf M}{U}$.
+    Then there exists a holonomic submodule $\widetilde N$ of $\sheaf M$ such that $\res{\widetilde{\sheaf N}}{U} = \sheaf N$.
+\end{Proposition}
+
+\subsection{Preservation of holonomicity}
+
+The goal of this subsection is to prove the following central theorem.
+
+\begin{Theorem}\label{thm:preservation-of-holonomicity}
+    Let $f\colon X \to Y$ be a morphism of smooth algebraic varieties.
+    Then $f_\bullet$ and $f^!$ preserve the holonomicity.
+    In other words these functors restrict to functors
+    \[
+        f_\bullet\colon \catDbDModhol{X} \to \catDbDModhol{Y}
+    \]
+    and
+    \[
+        f^!\colon \catDbDModhol{X} \to \catDbDModhol{X}.
+    \]
+\end{Theorem}
+
+\begin{Example}
+    Consider the open embedding $j\colon \as 1 \setminus \{0\} \hookrightarrow \as 1$.
+    Then $\sheaf M = H^0(j_\bullet \sO_{\as 1 \setminus 0}) = \CC[x, x^{-1}]$.
+    This is certainly not $\sO_X$-coherent.
+    However, since $\frac{\partial}{\partial} x^{-n} = -nx^{-n-1}$, it is generated by $x^{-1}$ as a $\sD_X$-module, and hence at least coherent.
+    In fact, we can filter $\sheaf M$ by the maximal appearing negative degree, so that $\Ch(\sheaf M) = T^*_XX \cup T^*_0X$.
+\end{Example}
+
+\begin{Remark}
+    Theorem \ref{thm:preservation-of-holonomicity} does not hold for analytic D-modules.
+    For example, consider again $j\colon \CC \setminus \{0\} \hookrightarrow \CC$.
+    Then, the analytic structure sheaf $\sO_{\CC \setminus 0}$ contains all functions which have an isolated essential singularity at the origin.
+    Thus the global sections of $\sO_{\CC \setminus 0}$ are not even finitely generated over $\sD_{\CC}$, which contains only regular functions.
+\end{Remark}
+
+\iffalse
+
 \begin{itemize}
-    \item Characteristic varieties and Bernstein's inequality
-    \item Global existence of good filtrations in the algebraic case
-    \item dimension estimates for dual give global dimension of D = dim X
     \item characteristic variety and pushforward (closed immersion, proper map -> Kashiwara's estimate)
     \item Two filtrations and duality characterization of holonomicity
-    \item $\catDModHol X$ is artinian
     \item Preservation of holonomicity (b-functions? Koszul duality?)
     \item dual functors
     \item Minimal extensions and indecomposables.
 \end{itemize}
+
 
 \section{The de Rham and solution functors}
 

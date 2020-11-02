@@ -80,6 +80,7 @@
 \newcommand\catrDMod[2][]{\catModules[][#1]{\sDop_{#2}}}
 \newcommand\catDModqc[1]{\catDMod[\mathrm{qc}]{#1}}
 \newcommand\catDModcoh[1]{\catDMod[\mathrm{coh}]{#1}}
+\newcommand\catDModhol[1]{\catDMod[\mathrm{hol}]{#1}}
 
 %%% derived categories of D-modules
 
@@ -95,6 +96,7 @@
 \newcommand{\catDpDModcoh}[1]{\catDDModcoh[+]{#1}}
 \newcommand{\catDmDModcoh}[1]{\catDDModcoh[-]{#1}}
 \newcommand{\catDbDModcoh}[1]{\catDDModcoh[\mathrm{b}]{#1}}
+\newcommand{\catDbDModhol}[1]{\mathrm{D}^{\mathrm{b}}_{\mathrm{hol}}(\sD_{#1})}
 
 \newcommand{\catDbf}[1]{\mathrm{D}^{\mathrm{b}}_{\mathrm{f}}(#1)}
 
@@ -104,6 +106,7 @@
 
 \newcommand{\DD}{\mathbb{D}}
 \DeclareMathOperator\SSupp{SS}
+\DeclareMathOperator\Ch{Ch}
 
 %%% misc %%%
 \newcommand\isoto\similarrightarrow % isomorphisms
@@ -113,7 +116,7 @@
     \nobreak \mskip 6muplus1mu \mathpunct {}\nonscript \mkern -\thinmuskip{:}\mskip 2mu\relax%
 }
 \newcommand{\stackcite}[1]{\cite[\href{http://stacks.math.columbia.edu/tag/#1}{Tag~\textsc{\MakeLowercase{#1}}}]{stacks-project}}
-
+\newcommand{\RomanNum}[1]{\textsc{\MakeLowercase{ii}}}
 % ----
 
 %
