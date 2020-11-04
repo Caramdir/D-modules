@@ -722,7 +722,7 @@ Define $\catDbDModcoh{X}_Z$ analogously.
 
 \subsection{Other useful identities}
 
-\begin{Proposition}
+\begin{Proposition}\label{prop:standard-triangle}
     Let $i\colon Z \hookrightarrow X$ be a closed immersion with open complement $j\colon U \hookrightarrow X$.
     Then for any $\sheaf M \in \catDbDModqc{X}$ there is a canonical distinguished triangle
     \[
@@ -731,7 +731,7 @@ Define $\catDbDModcoh{X}_Z$ analogously.
     Further, for $\sheaf M \in \catDbDModqc{U}$ one has $i^!j_\bullet \sheaf M = 0$.
 \end{Proposition}
 
-\begin{Proposition}[Base change theorem]
+\begin{Proposition}[Base change theorem]\label{prop:base-change}
     Consider a cartesian square
     \[
         \begin{tikzcd}
@@ -784,6 +784,11 @@ Recall that by Fact~\ref{fact:coherent} a D-module $\sheaf M \in \catDModqc{X}$ 
     Since $f$ is proper, $f_*$ maps coherent $\sO_X$-modules to coherent $\sO_Y$-modules.
     Thus $f_*(\canon_X \otimes_{\sO_X} \sheaf F^j)$ has $\sO$-coherent cohomology modules, and consequently $f_\bullet(\sD_X \otimes_{\sO_X} \sheaf F^j)$ has $\sD$-coherent ones.
 \end{proof}
+
+\begin{Remark}
+    If $f$ is not proper, then in general $f_\bullet$ does not preserve coherence.
+    For example if $X$ is non-proper and $f\colon X \to \pt$ is the structure map, then $f_\bullet \sD_X \cong \RR\Gamma(X, \sO_X)$ which is not finitely generated.
+\end{Remark}
 
 \subsection{Duality}
 
@@ -912,7 +917,7 @@ Due to time constraints we will not be able to prove the following important the
     To show that it is an isomorphism, one reduces to checking for $\sD_X$ and does an explicit computation.
 \end{proof}
 
-\begin{Theorem}
+\begin{Theorem}\label{thm:proper-adjunction}
     Let $f\colon X \to Y$ be a proper morphism.
     Then there is an isomorphism
     \[
@@ -984,9 +989,9 @@ Similarly, we define the associated graded of a filtered $A$-module to obtain a 
 \end{Corollary}
 
 Let
-\[
+\begin{equation}\label{eq:graded-ses}
     0 \to L \to M \to N \to 0
-\]
+\end{equation}
 be a short exact sequence of $A$-modules and assume that $M$ is endowed with a filtration $F$.
 Then there are induced filtrations on $L$ and $N$ defined by
 \[
@@ -1052,18 +1057,18 @@ that is, those prime ideals $\ideal p \in \Spec(\gr A)$ such that $(\gr^F M)_{\i
 \end{Lemma}
 
 \begin{Definition}
-    For a finitely generated $A$-module $M$ we call
+    For a finitely generated $A$-module $M$ and any good filtration $F$ on $M$ we call
     \[
-        \SSupp(M) = \supp(\gr^F M)
+        \SSupp(M) = \supp(\gr^F M) \subseteq \Spec(\gr A)
     \]
-    for any good filtration $F$ on $M$ the \emph{singular support} of $M$.
+    the \emph{singular support} of $M$.
 \end{Definition}
 
-If 
+Given a short exact sequence
 \[
     0 \to L \to M \to N \to 0
 \]
-is a short exact sequence of finitely generated $A$-modules, then
+of finitely generated $A$-modules the induced short exact sequence~\eqref{eq:graded-ses} implies that
 \[
     \SSupp(M) = \SSupp(L) \cup \SSupp(N).
 \]
@@ -1085,7 +1090,7 @@ Thus it has the following properties:
 \end{align*}
 An ideal $\ideal a$ of $\gr A$ is called \emph{involutive} if $\{\ideal a,\ideal a \} \subseteq \ideal a$.
 
-\begin{Example}
+\begin{Example}\label{ex:poisson-symplectic}
     Consider a smooth (affine) variety $X$.
     Then the filtration on $\sD_X$ induces a bracket on $\sO_{T^*X}$.
     This bracket coincides with the Poisson bracket induced by the symplectic structure on $T^*X$.
@@ -1224,8 +1229,8 @@ For $\sheaf M \in \catDbDModcoh{X}$ we set
 
 \subsection{Dimension estimates}
 
-Theorem~\ref{thm:Gabber} immediately implies that the characteristic variety of a coherent D-module is co-isotropic with respect to the natural symplectic structure on $T^*X$.
-As a consequence we get the following dimension estimate (which can be proven without resorting to Theorem~\ref{thm:Gabber}).
+Theorem~\ref{thm:Gabber} and Example~\ref{ex:poisson-symplectic} immediately imply that the characteristic variety of a coherent D-module is co-isotropic with respect to the natural symplectic structure on $T^*X$.
+As a consequence we get the following dimension estimate (which can also be proven without resorting to Theorem~\ref{thm:Gabber}).
 
 \begin{Theorem}[Bernstein's inequality]
     Let $\sheaf M$ be a coherent $\sD_X$-module.
@@ -1247,7 +1252,7 @@ Reformulating Proposition~\ref{prop:ss-of-dual} and Theorem~\ref{thm:Ext-dim-est
     \end{enumerate}
 \end{Proposition}
 
-We note that the last statement only gives an upper bound for the characteristic varieties of any cohomology module of $\DD\sheaf M$.
+We note that the last statement only gives an upper bound for the characteristic variety of any particular cohomology module of $\DD\sheaf M$.
 It follows that
 \begin{enumerate}
     \item $H^i(\DD\sheaf M) = 0$ unless $-(\dim X-\codim_{T^*X}\Ch(\sheaf M)) \le i \le 0$,
@@ -1361,6 +1366,72 @@ The goal of this subsection is to prove the following central theorem.
     Then, the analytic structure sheaf $\sO_{\CC \setminus 0}$ contains all functions which have an isolated essential singularity at the origin.
     Thus the global sections of $\sO_{\CC \setminus 0}$ are not even finitely generated over $\sD_{\CC}$, which contains only regular functions.
 \end{Remark}
+
+The proof of this theorem is fairly involved.
+Let us outline our plan of attack:
+\begin{enumerate}
+    \item[Step 1] Prove that $j_\bullet$ preserves holonomicity for locally closed immersions.
+        As we already considered closed immersions, we only need to check open immersions.
+        This is the hardest part of the proof.
+    \item[Step 2] Proof of the theorem for $f^!$, using the first step via the standard triangle of Proposition~\ref{prop:standard-triangle}.
+    \item[Step 3] Use the result of step 2 to give a stalk-wise characterization of holonomic modules.
+    \item[Step 4] Use base change (Proposition~\ref{prop:base-change}) and step 3 to show that $f_\bullet$ preserves holonomicity whenever $f$ is proper, finishing up the proof.
+\end{enumerate}
+
+[\ldots]
+
+\subsection{Six functors}
+
+\begin{Definition}
+    For a morphism $f\colon X \to Y$ define functors
+    \[
+        f^\bullet = \DD_Y \circ f^! \circ \DD_X \colon \catDbDModhol{Y} \to \catDbDModhol{X}
+    \]
+    and
+    \[
+        f_! = \DD_X \circ f_\bullet \circ \DD_Y \colon \catDbDModhol{X} \to \catDbDModhol{Y}.
+    \]
+\end{Definition}
+
+\begin{Remark}
+    Again, there exist a few notational variation is the literature.
+    For example \cite{HottaTakeuchiTanisaki:2008:DModulesPerverseSheavesRepresentationTheory} use $f^{\scalebox{1.5}{\star}}$ and $\int_{f!}$, while \cite{Bernstein:AlgebraicTheoryOfDModules} uses $f_*$ instead of $f_\bullet$.
+\end{Remark}
+
+Similar to Theorem~\ref{thm:proper-adjunction} one obtains the following adjunction statements.
+
+\begin{Theorem}\label{thm:adjunctions}
+    For $f\colon X \to Y$, $\sheaf M \in \catDbDModhol{X}$ and $\sheaf N \in \catDbDModhol{Y}$ there are natural isomorphisms
+    \[
+        \RsheafHom_{\sD_Y}(f_!\sheaf M,\, \sheaf N) \cong \RR f_* \RsheafHom_{\sD_X}(\sheaf M,\, f^!\sheaf N)
+    \]
+    and
+    \[
+        \RR f_* \RsheafHom_{\sD_X}(f^\bullet\sheaf M,\, \sheaf N) \cong \RsheafHom_{\sD_Y}(\sheaf M,\, f_\bullet\sheaf N).
+    \]
+    In particular, $(f^\bullet, f_\bullet)$ and $(f_!,f^!)$ are adjoint pairs of functors.
+\end{Theorem}
+
+\begin{Theorem}
+    For any $f\colon X \to Y$, there exists a canonical morphism of functors
+    \[
+        f_! \to f_\bullet\colon \catDbDModhol{X} \to \catDbDModhol{Y}.
+    \]
+    If $f$ is proper then this morphism is an isomorphism.
+\end{Theorem}
+
+\begin{proof}[Idea of proof]
+    Using Hironaka desingularization we can factor $f$ into a locally closed embedding followed by a proper projection.
+    For proper morphisms we already have a canonical isomorphism $f_! \cong f_\bullet$ (Theorem~\ref{thm:duality}).
+    It remains to construct one for an open embedding $j$ (and to show that the resulting morphism is independent of the choice of smooth compactification).
+    By adjunction we have
+    \[
+        \Hom(j_!\sheaf M,\, j_\bullet \sheaf M) \cong
+        \Hom(\sheaf M,\, j^!j_\bullet \sheaf M) \cong
+        \Hom(\sheaf M,\, \sheaf M).
+    \]
+    Thus the desired morphism $j_!\sheaf M \to j_\bullet \sheaf M$ is the image of $\id_{\sheaf M}$ under this identification.
+\end{proof}
 
 \iffalse
 
