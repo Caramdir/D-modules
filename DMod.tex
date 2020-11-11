@@ -1630,7 +1630,7 @@ Similar to Theorem~\ref{thm:proper-adjunction} one obtains the following adjunct
     In particular, $(f^\bullet, f_\bullet)$ and $(f_!,f^!)$ are adjoint pairs of functors.
 \end{Theorem}
 
-\begin{Theorem}
+\begin{Theorem}\label{thm:f_!->f_*}
     For any $f\colon X \to Y$, there exists a canonical morphism of functors
     \[
         f_! \to f_\bullet\colon \catDbDModhol{X} \to \catDbDModhol{Y}.
@@ -1651,13 +1651,51 @@ Similar to Theorem~\ref{thm:proper-adjunction} one obtains the following adjunct
     Thus the desired morphism $j_!\sheaf M \to j_\bullet \sheaf M$ is the image of $\id_{\sheaf M}$ under this identification.
 \end{proof}
 
+\subsection{Minimal extensions}
+
+\begin{Definition}
+    A non-zero coherent D-module $\sheaf M$ is called \emph{simple} or \emph{irreducible} if it has no coherent D-submodules other than $0$ and $\sheaf M$.
+\end{Definition}
+
+If $\sheaf M$ is holonomic, than by Lemma~\ref{lem:hol_thick_and_artinian}, $\sheaf M$ has a Jordan-H\"older series
+\[
+    \sheaf M = \sheaf M_0 \supsetneq \sheaf M_1 \supsetneq \dots \supsetneq M_r = 0
+\]
+such that each $\sheaf M_i/\sheaf M_{i+1}$ is simple.
+
+Let now $Y$ be a locally closed subvariety of $X$ and assume that the inclusion $i\colon Y \hookrightarrow X$ is affine.
+Then $\sD_{X \from Y}$ is locally free over $\sD_Y$ and $i_*$ is exact.
+Thus $i_\bullet$ is exact and for holonomic $\sheaf M$ we have
+\[
+    H^\ell(i_\bullet \sheaf M) = H^\ell(i_!\sheaf M) = 0 \quad\text{for } \ell \ne 0.
+\]
+By Theorem~\ref{thm:f_!->f_*} we have a morphism of holonomic modules $i_!\sheaf M \to i_\bullet \sheaf M$.
+
+\begin{Definition}
+    With the above assumptions, one calls
+    \[
+        L(Y,\sheaf M) = i_{!\bullet}\sheaf M = \im(i_!\sheaf M \to i_\bullet\sheaf M)
+    \]
+    the \emph{minimal extension} of $\sheaf M$.
+\end{Definition}
+
+We note that $i_{!\bullet}\sheaf M$ is holonomic.
+
+\begin{Theorem}\leavevmode
+    \begin{enumerate}
+        \item Let $Y$ be a locally closed subvariety of $X$ such that the inclusion $i\colon Y \hookrightarrow X$ is affine.
+            If $\sheaf M$ is a simple holonomic module on $Y$, then $i_{!\bullet}\sheaf M$ is a simple holonomic module on $X$.
+            Further, $i_{!\bullet}\sheaf M$ is the unique simple quotient of $i_!\sheaf M$ and the unique simple submodule of $i_\bullet\sheaf M$.
+        \item Any simple holonomic module $\sheaf M$ on $X$ is isomorphic to a minimal extension $i_{!\bullet}\sheaf N$, where $i\colon Y \hookrightarrow X$ is an affine locally closed embedding and $\sheaf N$ is a simple integrable connection on $Y$.
+        \item Let $i$ and $\sheaf N$ be as above and assume that $i'\colon Y'\hookrightarrow X$ is another affine locally closed embedding and $\sheaf N'$ is a simple integrable connection of $Y'$.
+            Then $i_{!\bullet}\sheaf N \cong i'_{!\bullet}\sheaf N'$ if and only if $\overline{Y} = \overline{Y'}$ and there exists an open dense subset $U \subseteq Y \cap Y'$ such that $\res{\sheaf N}{U} \cong \res{\sheaf N'}{U}$.
+    \end{enumerate}
+\end{Theorem}
+
 \iffalse
 
 \begin{itemize}
     \item characteristic variety and pushforward (closed immersion, proper map -> Kashiwara's estimate)
-    \item Preservation of holonomicity (b-functions? Koszul duality?)
-    \item dual functors
-    \item Minimal extensions and indecomposables.
 \end{itemize}
 
 
