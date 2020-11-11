@@ -1848,6 +1848,38 @@ For example, we can compute the derived tensor product $\otimes^L$ with a flat (
     which is not acyclic.
 \end{Warning}
 
+We define \emph{truncation functors} $\tau_{\ge n}$ and $\tau_{\le n}$ by defining their images on $X \in \catD{\cat A}$ to be
+\[
+    \tau_{\ge n}(X) = \bigl[ \dots \to 0 \to \coker{d^{n-1}} \to X^{n+1} \to X^{n+2} \to \dots \bigr]
+\]
+and
+\[
+    \tau_{\le n}(X) = \bigl[ \dots \to X^{n-2} \to X^{n-1} \to \ker d^{n} \to 0 \to \dots \bigr].
+\]
+We thus have maps $X \to \tau_{\ge n}X$ and $\tau_{\le n}X \to X$.
+The cohomology groups of the truncated complexes are
+\[
+    H^\ell(\tau_{\ge n}X) =
+    \begin{cases}
+        0 & \text{if } \ell < n \\
+        H^\ell(X) & \text{if } \ell \ge n
+    \end{cases}
+\]
+and
+\[
+    H^\ell(\tau_{\le n}X) =
+    \begin{cases}
+        H^\ell(X) & \text{if } \ell \le n \\
+        0 & \text{if } \ell > n
+    \end{cases}
+\]
+Set $\tau_{>n} = \tau_{\ge n+1}$ and $\tau_{<n} = \tau_{\le n-1}$.
+Then there is a distinguished triangle
+\[
+    \tau_{\le n}X \to X \to \tau_{>n} X
+\]
+in $\catD{\cat A}$.
+
 \printbibliography
 
 \end{document}
