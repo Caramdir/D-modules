@@ -85,7 +85,7 @@ We can now introduce our main objects of study.
     This is the skyscraper D-module at the origin (one notes that the usual skyscraper $\sO$-module $\CC_0$ cannot be made into a D-module).
 \end{Examples}
 
-\begin{Example}
+\begin{Example}\label{ex:sol_fct}
     Consider a differential operator $P \in \sD_X$ and the left D-module $\sheaf M = \sD_X/\sD_XP$.
     Then we have
     \begin{align*}
@@ -1661,8 +1661,6 @@ Similar to Theorem~\ref{thm:proper-adjunction} one obtains the following adjunct
     Thus the desired morphism $j_!\sheaf M \to j_\bullet \sheaf M$ is the image of $\id_{\sheaf M}$ under this identification.
 \end{proof}
 
-\iffalse
-
 \subsection{Minimal extensions}
 
 \begin{Definition}
@@ -1704,18 +1702,272 @@ We note that $i_{!\bullet}\sheaf M$ is holonomic.
     \end{enumerate}
 \end{Theorem}
 
-\begin{itemize}
-    \item characteristic variety and pushforward (closed immersion, proper map -> Kashiwara's estimate)
-\end{itemize}
+\section{Analytic D-modules associated to algebraic D-modules}
 
+Recall from Example~\label{ex:sol_fct} that D-modules \enquote{know} about solutions to differential equations.
+Fox example, given a differential operator $P \in \sD_X$, then $ \Hom_{\sD_X}(\sD_X/P\sD_X,\, \sO_X) = \{ f \in \sO_X : Pf = 0 \}$.
 
-\section{The de Rham and solution functors}
+Consider now $X = \as1$ and $P = \lambda\frac{\partial}{\partial x} -1$.
+Then we have to find $f \in \sO_X$ such that $\lambda f' = f$.
+But no algebraic functions satisfies this differential equation.
+On the other hand, there are clearly holonomic functions (namely $ce^{\lambda x}$) which are solutions.
 
-\begin{itemize}
-    \item analytification
-    \item de Rham and solution functors
-    \item constructibility (algebraic case?)
-\end{itemize}
+Thus in general it does not make sense to speak of solutions to algebraic D-modules.
+However, we would still like to do so -- even more we would like to say that algebraic D-modules can be recovered from their \enquote{solution sheaves}.
+
+\subsection{Analytification}
+
+Given a smooth complex (algebraic) variety $X$, we can consider the associated complex analytic variety $X^\an$ associated to $X$, i.e.~the complex manifold defined by the same equations as $X$, but with the classical topology and sheaf of holomorphic functions $\sO_{X^\an}$.
+We can define D-modules on $X^\an$ -- or indeed any smooth analytic variety -- in the same way as on $X$, using derivations of $\sO_{X^\an}$.
+We obtain a sheaf $\sD_{X^\an}$ and the basic functors in the same way.
+
+We note that we have a canonical maps of ringed spaces
+\[
+    \iota\colon (X^\an, \sO_{X^{\an}}) \to (X, \sO_X),
+\]
+inducing isomorphisms
+\[
+    \sD_{X^\an} \cong \sD_{X} \otimes_{\iota^{-1}\sO_X} \sO_{X^\an} \cong \sO_{X^\an} \otimes_{\iota^{-1}\sO_X} \sD_{X}.
+\]
+We define an analytification functor
+\[
+    \sheaf F \mapsto \sheaf F^\an = \iota^*\sheaf F = \sO_{X^\an} \otimes_{\iota^{-1}\sO_{X}} \sheaf F.
+\]
+If $\sheaf M$ is a $\sD_X$-module, then
+\[
+    \sheaf M^\an = 
+    \sO_{X^\an} \otimes_{\iota^{-1}\sO_{X}} \sheaf M \cong
+    \sD_{X^\an} \otimes_{\iota^{-1}\sD_{X}} \sheaf M
+\]
+is a $\sD_{X^\an}$-module.
+Note that we have $\sO_X^\an \cong \sO_{X^\an}$ and $\sD_X^\an \cong \sD_{X^\an}$.
+By \cite[Proposition~10]{Serre:GAGA}, the functor $\sheaf M \to \sheaf M^\an$ is exact.
+Hence is extends to a functor $\catDbDMod{X} \to \catDbDMod{X^\an}$ preserving the coherent and holonomic subcategories.
+
+The following facts are either trivial or follow from the GAGA principle.
+
+\begin{Facts}
+    Let $f\colon X \to Y$ be a morphism of smooth complex (algebraic) varieties.
+    \begin{enumerate}
+        \item For $\sheaf M \in \catDbDModcoh{X}$ one has $(\DD_X\sheaf M)^\an \cong \DD_{X^\an}\sheaf  M^\an$.
+        \item For $\sheaf M \in \catDbDMod{Y}$ one has $(f^!\sheaf M)^\an \cong f^{\an,!}\sheaf M^\an$.
+        \item For $\sheaf M \in \catDbDMod{X}$ one has a canonical morphism $(f_\bullet\sheaf M)^\an \cong f^{\an}_\bullet\sheaf M^\an$.
+            This is an isomorphism for $f$ proper and $\sheaf M \in \catDbDModcoh{X}$.
+    \end{enumerate}
+\end{Facts}
+
+\subsection{The de Rham and solution functors}
+
+\begin{Definition}
+    Let $X$ be a smooth algebraic variety.
+    Define the \emph{solution functor}
+    \[
+        \Sol_X\colon \catDbDMod{X} \to \catDbCMod{X^\an}, \qquad \sheaf M \mapsto \RsheafHom_{\sD_{X^\an}}(\sheaf M^\an,\, \sO_{X^\an})
+    \]
+    and the \emph{de Rham functor}
+    \[
+        \DR_X\colon \catDbDMod{X} \to \catDbCMod{X^\an}, \qquad \sheaf M \mapsto \canon_{X^\an} \Lotimes_{\sD_{X^\an}} \sheaf M^\an.
+    \]
+\end{Definition}
+
+\begin{Lemma}
+    Let $X$ be a smooth algebraic variety.
+    For $\sheaf M \in \catDbDModcoh{X}$ there exist canonical isomorphisms
+    \[
+        \DR_X(\sheaf M) \cong
+        \sheafRHom_{\sD_{X^\an}}(\sO_{X^\an},\, \sheaf M^\an)[\dim X] \cong
+        \Sol_X(\DD_X\sheaf M)[\dim X].
+    \]
+\end{Lemma}
+
+\begin{proof}
+    Apply Lemma~\ref{lem:hom-via-dual}.
+\end{proof}
+
+The above lemma allows us to express the solution functor in terms of the de Rham functor.
+The functor $\DR_X$ is usually easier to handle because it can be computed in terms of a locally free resolution on $\canon_{X^\an}$.
+In fact, as in \ref{lem:spencer_resolution} we have the locally free resolution
+\[
+    0 \to
+    \bigwedge^0 \ctb {X^\an} \otimes_{\sO_{X^\an}} \sD_{X^\an} \to
+    \dots \to
+    \bigwedge^{\dim X} \ctb {X^\an} \otimes_{\sO_{X^\an}} \sD_{X^\an} \to
+    \canon_{X^\an} \to 0
+\]
+of the right $\sD_{X^\an}$-module $\canon_{X^\an}$.
+Thus, if $\sheaf M \in \catDModcoh{X}$, the object $\DR_X(\sheaf M) \in \catDbCMod{X^\an}$ is represented by the complex
+\begin{equation}\label{de_rham_complex}
+    \bigwedge^0 \ctb {X^\an} \otimes_{\sO_{X^\an}} \sheaf M^\an \to
+    \dots \to
+    \bigwedge^{\dim X} \ctb {X^\an} \otimes_{\sO_{X^\an}} \sheaf M^\an
+\end{equation}
+in degrees $-\dim X, \dots, 0$ with differential
+\[
+    d\colon \bigwedge^p \ctb {X^\an} \otimes_{\sO_{X^\an}} \sheaf M^\an \to \bigwedge^{p+1} \ctb {X^\an} \otimes_{\sO_{X^\an}} \sheaf M^\an
+\]
+given by
+\[
+    d(\omega \otimes m) = d\omega \otimes m + \sum_i dx_i \wedge \omega \otimes \partial_i s
+\]
+for a local coordinate system $\{x_i,\, \partial_i\}$.
+
+\begin{Example}
+    For any smooth \emph{analytic} variety $X$ we can similarly define functors $\Sol_X$ and $\DR_X$, just without taking $(-)^\an$ first.
+
+    Let $\sheaf M$ be a integrable system on a smooth analytic variety $X$, i.e.~an $\sO_{X}$-coherent $\sD_{X}$-module.
+    Let $\sheaf L = M^\nabla$ be its sheaf of flat sections, i.e.~the kernel of the corresponding connection $\nabla\colon \sheaf M \to \ctb X \otimes_{\sO_X} \sheaf M$.
+    Thus
+    \[
+        \sheaf L = \{ m \in \sheaf M : \nabla m = 0\} =
+        \{ m \in \sheaf M : \tb Xm = 0 \} =
+        \sheafHom_{\sD_X}(\sO_X,\, \sheaf M) =
+        H^{-\dim X}(\DR_X\sheaf M).
+    \]
+    The sheaf $\sheaf L$ is a \emph{local system} on $X$, i.e.~a locally free $\CC_X$-module of finite rank.
+    We can recover $\sheaf M$ from $\sheaf L$ by the isomorphism of $\sD_X$-modules $\sheaf M \cong \sO_X \otimes_{\CC_X} \sheaf L$.
+    We obtain an equivalence of categories
+    \[
+        \bigl\{\text{integrable connections on $X$}\bigr \}
+        \leftrightarrow
+        \bigl\{\text{local systems on $X$}\bigr \}
+    \]
+    Writing $M \cong \sO_X \otimes_{\CC_X} \sheaf L$, the entries in the complex~\eqref{de_rham_complex} become $\bigwedge^p \ctb X \otimes_{\CC_X} L$ with the differential only acting on the first factors.
+    Thus the holonomic Poincar\'e Lemma implies that
+    \[
+        \DR_X(\sheaf M) \cong \sheaf M^\nabla[\dim X].
+    \]
+    Let us note here that if $X$ is \emph{algebraic} (and non-compact) then it is not true that integrable connections on $X$ are the same as local systems on $X^\an$.
+    We will return to this question in the next section.
+\end{Example}
+
+\begin{Theorem}
+    Let $f\colon X \to Y$ be a morphism of smooth analytic varieties.
+    Then we have an isomorphism $Rf_*\DR_X \sheaf M \cong DR_Y f_\bullet\sheaf M$.
+\end{Theorem}
+
+\begin{proof}
+    Formal manipulation.
+\end{proof}
+
+\begin{Corollary}
+    Let $f\colon X \to Y$ be proper a morphism of smooth algebraic varieties.
+    Then we have an isomorphism $Rf_*\DR_X \sheaf M \cong DR_Y f_\bullet\sheaf M$.
+\end{Corollary}
+
+\subsection{Constructible sheaves}
+
+Let us consider the target category for the de Rham and solution functors.
+General references for this section include \cite{Dimca:2004:SheavesInTopology,Iversen:1986:CohomologyOfSheaves,KashiwaraSchapira:1994:SheavesOnManifolds} and the original article \cite{Verdier:1966:DualiteDansLaCohomologieDesEspacesLocalementCompacts}.
+
+For a morphism $f\colon X \to Y$ of locally compact Hausdorff topological spaces we have the functors $f^{-1}$, $f_*$ and $f_!$ between the corresponding categories on $\CC_X$-modules (resp.~$\CC_Y$-modules).
+Recall here that $f_!$ is the \emph{direct image with compact support} defined by
+\[
+    (f_!\sheaf F)(U) = \big\{ s \in \sheaf F(f^{-1}U) : \res{f}{\supp(s)} \colon \supp(s) \to U \text{ is proper}\big\} \subseteq (f_*\sheaf F)(U).
+\]
+The functor $f^{-1}$ is exact, while $f_*$ and $f_!$ are left exact, so that we have corresponding derived functors $f^{-1}$, $\RR f_*$ and $\RR f_!$.
+
+\begin{Theorem}[Poincar\'e--Verdier duality]
+    Assume that $f_!$ has finite cohomological dimension (this is for example true if $f$ is a morphism of smooth analytic varieties).
+    The functor $\RR f_!\colon \colon \catDpCMod{X} \to \catDpCMod{Y}$ has a left adjoint $f^!\colon \catDpCMod{Y} \to \catDpCMod{X}$.
+\end{Theorem}
+
+\begin{Definition}
+    Let $\pi \colon X \to \pt$ be the unique morphism to the point.
+    The complex
+    \[
+        \topdc_X = \pi^!\CC
+    \]
+    is called the \emph{dualizing complex} of $X$.
+    We set
+    \[
+        \topDD_X = \sheafRHom_{\CC_X}(-,\, \topdc_X).
+    \]
+\end{Definition}
+
+If $X$ is a manifold, then $\topdc_X$ is the orientation sheaf placed in degree $-\dim_\RR X$.
+In particular, if $X$ is a smooth complex analytic variety, then $\topdc_X \cong \CC_X[2\dim X]$.
+
+\begin{Definition}
+    Let $X$ be an analytic variety.
+    A locally finite partition $X = \bigsqcup_{\alpha \in A} X_\alpha$ by locally closed analytic subsets $X_\alpha$ is called a \emph{stratification} of $X$ if each $X_\alpha$ is smooth and $X_\alpha = \bigsqcup_{\beta \in B} X_\beta$ for some subset $B$ of $A$.
+    Each $X_\alpha$ is called a \emph{stratum} of the stratification.
+\end{Definition}
+
+\begin{Definition}
+    Let $X$ be an analytic variety.
+    Given a stratification $\{X_\alpha\}$ of $X$, a sheaf $\sheaf F$ on $X$ is called \emph{constructible with respect to $\{X_\alpha\}$} if each restriction $\res{\sheaf F}{X_\alpha}$ is a local system on $X_\alpha$.
+    A sheaf on $X$ is called \emph{constructible} if there exists some stratification on $X$ with respect to which $\sheaf F$ is constructible.
+
+    We denote by $\catDbConstr{X}$ the full subcategory of $\catDbCMod{X}$ consisting of complexes with constructible cohomology sheaves.
+\end{Definition}
+
+If $X$ is associated to an algebraic variety, we require the strata to be algebraic:
+
+\begin{Definition}
+    Let $X$ be an algebraic variety.
+    A locally finite partition $X = \bigsqcup_{\alpha \in A} X_\alpha$ by locally closed algebraic subsets $X_\alpha$ is called a \emph{stratification} of $X$ if each $X_\alpha$ is smooth and $X_\alpha = \bigsqcup_{\beta \in B} X_\beta$ for some subset $B$ of $A$.
+
+    Given a stratification $\{X_\alpha\}$ of $X$, a sheaf $\sheaf F$ on $X^\an$ is called \emph{constructible with respect to $\{X_\alpha\}$} if each restriction $\res{\sheaf F}{X_\alpha^\an}$ is a local system on $X_\alpha^\an$.
+    A sheaf on $X$ is called \emph{constructible} if there exists some stratification on $X$ with respect to which $\sheaf F$ is constructible.
+
+    We denote by $\catDbConstr{X}$ the full subcategory of $\catDbCMod{X^\an}$ consisting of complexes with (algebraically) constructible cohomology sheaves.
+\end{Definition}
+
+To simplify notation for an algebraic variety, we write $f^{-1}$, $f_*$, etc., for $f^{\an,-1}$, $f^\an_*$, etc.
+
+\begin{Theorem}\leavevmode
+    \begin{enumerate}
+        \item Let $X$ be an algebraic or analytic variety.
+            Then $\topdc_X \in \catDbConstr{X}$, $\topDD_X$ preserves $\catDbConstr{X}$, and $\topDD_X \circ \topDD_X \cong \id$ on $\catDbConstr{X}$.
+        \item Let $f\colon X \to Y$ be a morphism of algebraic or analytic varieties.
+            Then $f^{-1}$ and $f^!$ induce functors
+            \[
+                f^{-1},\, f^!\colon \catDbConstr{Y} \to \catDbConstr{X}
+            \]
+            and
+            \[
+                f^! \cong \topDD_X \circ f^{-1} \circ \topDD_Y
+            \]
+            on $\catDbConstr{Y}$.
+        \item Let $f\colon X \to Y$ be a morphism of algebraic or analytic varieties.
+            In the analytic case assume further that $f$ is proper.
+            Then $\RR f_*$ and $\RR f_!$ induce functors
+            \[
+                \RR f_*,\, \RR f_!\colon \catDbConstr{X} \to \catDbConstr{Y}
+            \]
+            and
+            \[
+                \RR f_! \cong \topDD_Y \circ \RR f_* \circ \topDD_X
+            \]
+            on $\catDbConstr{X}$.
+        \item Let $X$ be an algebraic or analytic variety.
+            Then the tensor product $\Lotimes_{\CC}$ restricts to a functor
+            \[
+                - \Lotimes_\CC -\colon \catDbConstr{X} \times \catDbConstr{X} \to \catDbConstr{X}.
+            \]
+    \end{enumerate}
+\end{Theorem}
+
+\subsection{Constructibility}
+
+\begin{Theorem}
+    Let $X$ be a smooth algebraic variety and $\sheaf M \in \catDbDModhol{X}$.
+    Then $\DR_X(\sheaf M)$ and $\Sol_X(\sheaf M)$ are in $\catDbConstr{X}$.
+\end{Theorem}
+
+\begin{Remark}
+    A similar statement is true for the analytic setting.
+\end{Remark}
+
+The idea of the proof is to apply Proposition~\ref{prop:generically-integrable-connection} to reduce to the case of integrable connections (which we already treated) and apply induction.
+However to do so, we would need the pushforward $j_!$ along a locally closed embedding to commute with the de Rham functor, which is not the case.
+Thus we need to work around, and somehow replace $j_!$ with some proper pushforward.
+
+\begin{proof}{}
+    [next time]
+\end{proof}
+
+\iffalse
 
 \section{Regularity}
 

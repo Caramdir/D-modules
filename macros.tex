@@ -69,7 +69,7 @@
 \newcommand\as[2][]{\mathbb A^{#2}_{#1}}        % affine space
 \newcommand\ps[2][]{\mathbb P^{#2}_{#1}}        % projective space
 \newcommand\pt{\mathrm{pt}}                     % a point
-
+\newcommand\an{{\mathrm{an}}}                   % analytification
 
 %%% D-modules %%%
 
@@ -107,6 +107,17 @@
 \newcommand{\DD}{\mathbb{D}}
 \DeclareMathOperator\SSupp{SS}
 \DeclareMathOperator\Ch{Ch}
+\DeclareMathOperator\Sol{Sol}
+
+%%% C-modules %%%
+\newcommand{\catDCMod}[2][]{\mathrm{D}^{#1}(\CC_{#2})}
+\newcommand{\catDpCMod}[1]{\catDCMod[+]{#1}}
+\newcommand{\catDmCMod}[1]{\catDCMod[-]{#1}}
+\newcommand{\catDbCMod}[1]{\catDCMod[\mathrm{b}]{#1}}
+\newcommand{\topDD}{\mathbb{D}^{\mathrm{top}}}
+\newcommand{\topdc}{\omega^{\mathrm{top}}}
+\newcommand{\catDbConstr}[1]{\mathrm{D}^{\mathrm{b}}_{\mathrm{c}}(\CC_{#1})}
+
 
 %%% misc %%%
 \newcommand\isoto\similarrightarrow % isomorphisms

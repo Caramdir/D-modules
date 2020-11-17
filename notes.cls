@@ -264,6 +264,7 @@
 \fi
 \newtheorem{Theorem}[Thm]{Theorem}
 \newtheorem{Fact}[Thm]{Fact}
+\newtheorem{Facts}[Thm]{Facts}
 \newtheorem{Claim}[Thm]{Claim}
 \newtheorem{Prop}[Thm]{Proposition}
 \newtheorem{Proposition}[Thm]{Proposition}
@@ -307,6 +308,7 @@
 \theoremstyle{plain}
 \newtheorem*{Thm*}{Theorem}
 \newtheorem*{Fact*}{Fact}
+\newtheorem*{Facts*}{Facts}
 \newtheorem*{Claim*}{Claim}
 \newtheorem*{Prop*}{Proposition}
 \newtheorem*{Cor*}{Corollary}
