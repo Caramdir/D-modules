@@ -416,7 +416,7 @@ We note that the definition of $f_\bullet$ contains a left-derived functor and a
 \begin{Corollary}
     Let $i\colon Z \hookrightarrow X$ be a closed immersion.
     \begin{enumerate}
-        \item For any $\sheaf M \in \catDMod{X}$ we have $H^\ell(i_\bullet \sheaf M)$ for $\ell \ne 0$.
+        \item For any $\sheaf M \in \catDMod{X}$ we have $H^\ell(i_\bullet \sheaf M) = 0$ for $\ell \ne 0$.
             In particular 
             \[
                 H^0(i_\bullet (-))\colon \catDMod{Z} \to \catDMod{X}
@@ -1571,7 +1571,8 @@ From Exercise~\ref{ex:closed_embedding_and_ch} it immediately follows that $i^!\
 
     To show the reverse implication we induct on the dimension of $\supp \sheaf M$.
     As usual, we can assume that $\sheaf M \in \catDModcoh{X}$.
-    If it is zero, then we are immediately done by Kashiwara's equivalence.
+    By Kashiwara's equivalence, we can further suppose that $X = \supp\sheaf M$.
+    If $\dim X = 0$, there is nothing to show.
     Otherwise we can find an open dense subvariety $U$ of $\supp\sheaf M$ such that $\res{\sheaf M}U$ is projective as an $\sO_U$-module.
     Thus the functor $i_x^*$ is exact on $\res{\sheaf M}U$, and by assumption each $i_x^*\res{\sheaf M}{U}$ is finite dimensional.
     Thus $\res{\sheaf M}{U}$ has to be locally free of finite rank, and hence coherent over $\sO_U$.
@@ -1582,7 +1583,7 @@ From Exercise~\ref{ex:closed_embedding_and_ch} it immediately follows that $i^!\
         \sheaf N \to \sheaf M \to j_\bullet j^!\sheaf M.
     \]
     By the above and Lemma~\ref{lem:j_*holonomic}, $j_\bullet j^!\sheaf M$ is holonomic, and hence in particular coherent.
-    Thus $\sheaf N$ is coherent, and by base-change its fibers coincide with those of $\sheaf M$ outside of $U$ (note that $i_x^!j_* = 0$ for $x \notin U$).
+    Thus $\sheaf N$ is coherent, supported on the complement of $U$, and by base-change its fibers coincide with those of $\sheaf M$ outside of $U$ (note that $i_x^!j_* = 0$ for $x \notin U$).
     Thus by induction $\sheaf N$ is holonomic, and hence so is $\sheaf M$.
 \end{proof}
 
@@ -1721,7 +1722,7 @@ Given a smooth complex (algebraic) variety $X$, we can consider the associated c
 We can define D-modules on $X^\an$ -- or indeed any smooth analytic variety -- in the same way as on $X$, using derivations of $\sO_{X^\an}$.
 We obtain a sheaf $\sD_{X^\an}$ and the basic functors in the same way.
 
-We note that we have a canonical maps of ringed spaces
+We note that we have a canonical map of ringed spaces
 \[
     \iota\colon (X^\an, \sO_{X^{\an}}) \to (X, \sO_X),
 \]
@@ -1731,7 +1732,7 @@ inducing isomorphisms
 \]
 We define an analytification functor
 \[
-    \sheaf F \mapsto \sheaf F^\an = \iota^*\sheaf F = \sO_{X^\an} \otimes_{\iota^{-1}\sO_{X}} \sheaf F.
+    \sheaf F \mapsto \sheaf F^\an \coloneqq \iota^*\sheaf F = \sO_{X^\an} \otimes_{\iota^{-1}\sO_{X}} \sheaf F.
 \]
 If $\sheaf M$ is a $\sD_X$-module, then
 \[
@@ -1751,7 +1752,7 @@ The following facts are either trivial or follow from the GAGA principle.
     \begin{enumerate}
         \item For $\sheaf M \in \catDbDModcoh{X}$ one has $(\DD_X\sheaf M)^\an \cong \DD_{X^\an}\sheaf  M^\an$.
         \item For $\sheaf M \in \catDbDMod{Y}$ one has $(f^!\sheaf M)^\an \cong f^{\an,!}\sheaf M^\an$.
-        \item For $\sheaf M \in \catDbDMod{X}$ one has a canonical morphism $(f_\bullet\sheaf M)^\an \cong f^{\an}_\bullet\sheaf M^\an$.
+        \item For $\sheaf M \in \catDbDMod{X}$ one has a canonical morphism $(f_\bullet\sheaf M)^\an \to f^{\an}_\bullet\sheaf M^\an$.
             This is an isomorphism for $f$ proper and $\sheaf M \in \catDbDModcoh{X}$.
     \end{enumerate}
 \end{Facts}
@@ -1815,7 +1816,7 @@ for a local coordinate system $\{x_i,\, \partial_i\}$.
     For any smooth \emph{analytic} variety $X$ we can similarly define functors $\Sol_X$ and $\DR_X$, just without taking $(-)^\an$ first.
 
     Let $\sheaf M$ be a integrable system on a smooth analytic variety $X$, i.e.~an $\sO_{X}$-coherent $\sD_{X}$-module.
-    Let $\sheaf L = M^\nabla$ be its sheaf of flat sections, i.e.~the kernel of the corresponding connection $\nabla\colon \sheaf M \to \ctb X \otimes_{\sO_X} \sheaf M$.
+    Let $\sheaf L = \sheaf M^\nabla$ be its sheaf of flat sections, i.e.~the kernel of the corresponding connection $\nabla\colon \sheaf M \to \ctb X \otimes_{\sO_X} \sheaf M$.
     Thus
     \[
         \sheaf L = \{ m \in \sheaf M : \nabla m = 0\} =
@@ -1823,16 +1824,15 @@ for a local coordinate system $\{x_i,\, \partial_i\}$.
         \sheafHom_{\sD_X}(\sO_X,\, \sheaf M) =
         H^{-\dim X}(\DR_X\sheaf M).
     \]
-    The sheaf $\sheaf L$ is a \emph{local system} on $X$, i.e.~a locally free $\CC_X$-module of finite rank.
-    We can recover $\sheaf M$ from $\sheaf L$ by the isomorphism of $\sD_X$-modules $\sheaf M \cong \sO_X \otimes_{\CC_X} \sheaf L$.
+    By the Frobenius theorem on systems of differential equations, the sheaf $\sheaf L$ is a \emph{local system} on $X$, i.e.~a locally free $\CC_X$-module of finite rank, and we can recover $\sheaf M$ from $\sheaf L$ by the isomorphism of $\sD_X$-modules $\sheaf M \cong \sO_X \otimes_{\CC_X} \sheaf L$.
     We obtain an equivalence of categories
     \[
         \bigl\{\text{integrable connections on $X$}\bigr \}
         \leftrightarrow
         \bigl\{\text{local systems on $X$}\bigr \}
     \]
-    Writing $M \cong \sO_X \otimes_{\CC_X} \sheaf L$, the entries in the complex~\eqref{de_rham_complex} become $\bigwedge^p \ctb X \otimes_{\CC_X} L$ with the differential only acting on the first factors.
-    Thus the holonomic Poincar\'e Lemma implies that
+    Writing $\sheaf M \cong \sO_X \otimes_{\CC_X} \sheaf L$, the entries in the complex~\eqref{de_rham_complex} become $\bigwedge^p \ctb X \otimes_{\CC_X} L$ with the differential only acting on the first factors.
+    Thus the holomorphic Poincar\'e Lemma implies that
     \[
         \DR_X(\sheaf M) \cong \sheaf M^\nabla[\dim X].
     \]
@@ -1948,6 +1948,8 @@ To simplify notation for an algebraic variety, we write $f^{-1}$, $f_*$, etc., f
     \end{enumerate}
 \end{Theorem}
 
+\iffalse
+
 \subsection{Constructibility}
 
 \begin{Theorem}
@@ -1967,7 +1969,6 @@ Thus we need to work around, and somehow replace $j_!$ with some proper pushforw
     [next time]
 \end{proof}
 
-\iffalse
 
 \section{Regularity}
 
