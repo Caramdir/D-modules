@@ -1315,7 +1315,7 @@ The following proposition is central in the study of holonomic D-modules as it a
 \end{Proposition}
 
 \begin{proof}
-    Set $S = \Ch(\sheaf M) \setminus T^*X_X$.
+    Set $S = \Ch(\sheaf M) \setminus T^*_XX$.
     Let $\pi \colon T^*X \to X$ be the projection.
     If $S$ is empty, then $\sheaf M$ is already $\sO_X$-coherent.
     Otherwise, since $\Ch(\sheaf M)$ is conical, each fiber of $\pi\colon S \to \pi(S)$ has dimension at least $1$.
@@ -1533,7 +1533,7 @@ Factoring $f$ as a closed immersion followed by a projection, it suffices to che
 For a projection $f\colon X \times Y \to Y$, we have $f^! = f^*[\dim X]$ and $f^*$ is exact with $f^*\sheaf N = \sO_X \boxtimes \sheaf N$.
 We have
 \[
-    \Ch(f^*\sheaf N) = \Ch(\sO_X \boxtimes \sheaf N) = \Ch(\sO_X) \times \Ch(\sheaf N) = T^*X_X \times \Ch(\sheaf N).
+    \Ch(f^*\sheaf N) = \Ch(\sO_X \boxtimes \sheaf N) = \Ch(\sO_X) \times \Ch(\sheaf N) = T^*_XX \times \Ch(\sheaf N).
 \]
 Therefore, if $\sheaf N$ is holonomic, so is $f^!\sheaf N$.
 
@@ -1771,7 +1771,7 @@ The following facts are either trivial or follow from the GAGA principle.
     \]
 \end{Definition}
 
-\begin{Lemma}
+\begin{Lemma}\label{lem:dR_and_sol}
     Let $X$ be a smooth algebraic variety.
     For $\sheaf M \in \catDbDModcoh{X}$ there exist canonical isomorphisms
     \[
@@ -1948,11 +1948,10 @@ To simplify notation for an algebraic variety, we write $f^{-1}$, $f_*$, etc., f
     \end{enumerate}
 \end{Theorem}
 
-\iffalse
 
 \subsection{Constructibility}
 
-\begin{Theorem}
+\begin{Theorem}\label{thm:constructibility}
     Let $X$ be a smooth algebraic variety and $\sheaf M \in \catDbDModhol{X}$.
     Then $\DR_X(\sheaf M)$ and $\Sol_X(\sheaf M)$ are in $\catDbConstr{X}$.
 \end{Theorem}
@@ -1965,22 +1964,270 @@ The idea of the proof is to apply Proposition~\ref{prop:generically-integrable-c
 However to do so, we would need the pushforward $j_!$ along a locally closed embedding to commute with the de Rham functor, which is not the case.
 Thus we need to work around, and somehow replace $j_!$ with some proper pushforward.
 
-\begin{proof}{}
-    [next time]
+\begin{proof}
+    Since $\DR_X \cong \Sol_X \circ \DD_X[\dim X]$, it suffices to prove the theorem for $\DR_X$.
+    As usual, we may assume that $\sheaf M \in \catDModhol{X}$.
+    By Proposition~\ref{prop:generically-integrable-connection}, $\sheaf M$ is generically an integrable connection.
+    Hence, $\DR_X(\sheaf M)$ is generically (a shift of) a local system, and hence there exists an open dense subset $U$ of $X$ such that $\DR_U(\res{\sheaf M}{U}) \in \catDbConstr{U}$.
+
+    Thus we proceed by noetherian induction: given an open dense subset $U$ of $X$ such that $\DR_U(\res{\sheaf M}U) \in \catDbConstr{U}$, we have to show that there exists an open dense subset $V$ of some irreducible component of $X \setminus U$ such that $\DR_{U\cup V}(\res{\sheaf M}{U \cup V}) \in \catDbConstr{U \cup V}$.
+
+    The de Rham functor commutes with taking \'etale coverings.
+    Thus we can assume that $X$ is an open subset of $\as n$, $X \setminus U = X \cap \as {n-k}$ and $T = X \cap \as {n-k}$ dense is $\as n-k$.
+    By shrinking $X$ if necessary, we can further assume that $X$ is an open subset of $\as k \times T$.
+
+    Consider now $\as k$ as an open subset of $\ps k$.
+    We have corresponding open embeddings
+    \[
+        j_X\colon X \hookrightarrow \ps k \times T
+        \quad\text{and}\quad
+        j_U\colon U \hookrightarrow \ps k \times T
+    \]
+    Let $\sheaf N$ be some holonomic extension of $\sheaf M$ to $\ps k \times T$ (e.g.~$\sheaf N = j_\bullet \sheaf M$) and set $\sheaf F = \DR_{\ps k \times T}(\sheaf N)$.
+    Let $S = \ps k \times T \setminus X$ be the complement of $X$ and consider the closed embeddings
+    \[
+        i_S\colon S \hookrightarrow \ps k \times T
+        \quad\text{and}\quad
+        i_T\colon 0 \times T \hookrightarrow \ps k \times T
+    \]
+    We note that the complement of $U$ in $\ps k \times T$ is $S \sqcup T$.
+    The corresponding distinguished triangle reads
+    \[
+        \RR j_{U,!}j_U^{-1} \sheaf F 
+        \to
+        \sheaf F
+        \to
+        \RR i_{S,!}i_S^{-1} \sheaf F \oplus \RR i_{T,!}i_T^{-1} \sheaf F.
+    \]
+    Let $p\colon \ps k \times T \to T$ be the projection.
+    Applying $\RR p_* = \RR p_!$ to the above triangle yields
+    \[
+        \RR (p \circ j_U)_!j_U^{-1} \sheaf F 
+        \to
+        \RR p_* \sheaf F
+        \to
+        \RR (p \circ i_{S})_!i_S^{-1} \sheaf F \oplus \RR ( p \circ i_T)_!i_T^{-1} \sheaf F.
+    \]
+    By the induction hypothesis $j_U^{-1}\sheaf F = \DR_{U}(\res{\sheaf M}U)$ is constructible.
+    Hence so is $\RR (p \circ j_U)_!j_U^{-1} \sheaf F$.
+
+    Because $p$ is proper, for the middle term we have
+    \[
+        \RR p_* \sheaf F =
+        \RR p_* \DR_{\ps k \times T}(\sheaf N) \cong
+        \DR_T(p_\bullet \sheaf N).
+    \]
+    As $p_\bullet\sheaf N$ is holonomic, there exists an open dense subset $V$ of $T$ such that $\res{(\RR p_* \sheaf F)}{V^\an} \in \catDbConstr{V}$.
+    The distinguished triangle therefore implies that also the restriction of $\RR ( p \circ i_T)_!i_T^{-1} \sheaf F$ to $V$ is constructible.
+    
+    Let $i\colon T \hookrightarrow X$ be the embedding.
+    We note that $p \circ i_T = \id_T$ and hence
+    \[
+        \RR ( p \circ i_T)_!i_T^{-1} \sheaf F \cong
+        i_T^{-1} \DR_{\ps k \times T}(\sheaf N) \cong
+        i^{-1} j_X^{-1} \DR_{\ps k \times T}(\sheaf N) \cong
+        i^{-1} \DR_{X}(\sheaf M).
+    \]
+    In other words, $\res{\DR_X\sheaf M}{V^\an} \in \catDbConstr{V}$.
+    Therefore $V$ is as required, i.e.~$\DR_{U \cup V}(\res{\sheaf M}{U \cup V}) \in \catDbConstr{U \cup V}$.
 \end{proof}
 
+\begin{Theorem}
+    For $\sheaf M \in \catDbDModcoh{X}$ we have a canonical morphisms 
+    \[
+        \DR_X(\DD_X \sheaf M) \to \topDD_X(\DR_X \sheaf M)
+    \]
+    and
+    \[
+        \Sol_X(\DD_X\sheaf M)[\dim X] \to \topDD_X(\Sol_X(\sheaf M)[\dim X]).
+    \]
+    For $\sheaf M \in \catDbDModhol{X}$ they are isomorphisms.
+\end{Theorem}
 
-\section{Regularity}
+\begin{proof}
+    Since $\DR_X(\sheaf M) \cong \Sol_X(\DD_X \sheaf M)[\dim X]$, it suffices to show the existence of a canonical morphism
+    \[
+        \Sol_X(\sheaf M) \to \topDD_X(\DR_X(\sheaf M))[-\dim X].
+    \]
+    We have a canonical morphism
+    \[
+        \RsheafHom_{\sD_{X^\an}}(\sO_{X^\an},\, \sheaf M^\an) \otimes_{\CC_{X^\an}} \sheafRHom_{\sD_{X^\an}}(\sheaf M^\an,\, \sO_{X^\an})
+        \to
+        \RsheafHom_{\sD_{X^\an}}(\sO_{X^\an},\, \sO_{X^\an}).
+    \]
+    We note that $\RsheafHom_{\sD_{X^\an}}(\sO_{X^\an},\, \sO_{X^\an}) \cong \CC_{X^\an}$.
+    Thus by Lemma~\ref{lem:dR_and_sol}, the above morphism can be written as
+    \[
+        \DR_X(\sheaf M) \otimes_{\CC_{X^\an}} \Sol_X(\sheaf M) \to \CC_{X^\an}[\dim X].
+    \]
+    By tensor-Hom adjunction this induces a canonical morphism
+    \begin{equation}\label{eq:sol_to_d_of_dr}
+        \Sol_X(\sheaf M) \to \sheafRHom_{\CC_{X^\an}}(\DR_X(\sheaf M),\, \CC_{X^\an}[\dim X]) \cong \topDD(\DR_X(\sheaf M))[-\dim X].
+    \end{equation}
+    Next we have to prove that this is an isomorphism for $\sheaf M \in \catDbDModhol{X}$.
+    If $\sheaf M$ is an integrable connection, we write $\sheaf M^\an \cong \sO_{X^\an} \otimes_{\CC_{X^\an}} \sheaf F$ for some local system $\sheaf F$ on $X^\an$.
+    In this case the assertion is immediate.
+
+    Thus we always know that \eqref{eq:sol_to_d_of_dr} is generically an isomorphism.
+    We then use the same strategy as in the proof of Theorem~\ref{thm:constructibility} to show that it is an isomorphism everywhere.
+\end{proof}
+
+\section{The Riemann--Hilbert Correspondence}
+
+Inspired by Theorem~\ref{thm:constructibility}, we would like to use the de Rham (or solution) functor to relate holonomic D-modules to constructible sheaves.
+Unfortunately, we have already seen that the de Rahm functor is not conservative as the following example shows.
+
+\begin{Example}
+    Consider $X = \as 1$ and $\sheaf M = \sD_X/\sD_X(\partial - 1)$.
+    That is, $\sheaf M$ is the connection $\nabla(f) = (f' - f)dx$.
+    Then flat sections of $\sheaf M$ are given by $ce^x$, so that the corresponding local system is trivial.
+    On the other hand, because $e^x$ is not a polynomial function, $\sheaf M$ is not isomorphic to $\sO_X$ as an algebraic $\sD_X$-module.
+\end{Example}
+
+\subsection{Connections with regular singularities}
+
+In order for the de Rham functor to be an equivalence, we need to restrict to a smaller subcategory.
+We will first do so for integrable connections and start with the analytic situation.
+
+Let $D = \{ x \in \CC : |x| < r \}$ be a complex disc and let $D^* = D \setminus \{0\}$ be the punctured disc.
+We let $\sO_D$ be the algebra of holomorphic functions on $D$ and $\sO_D[x^{-1}]$ be the meromorphic functions.
+We also have the space of meromorphic 1-forms $\ctb{X}[x^{-1}]$ and its submodule of $\ctb{X,\log}$ of 1-forms with pole order at most $1$ at the origin.
+
+\begin{Definition}
+    A \emph{meromorphic connection} on $D$ is an $\sO_D[x^{-1}]$-coherent sheaf  $\sheaf M$ together with an (integrable) connection 
+    \[
+        \nabla\colon \sheaf M \to \sheaf M \otimes_{\sO_D[x^{-1}]} \ctb D[x^{-1}] \cong \sheaf M \otimes_{\sO_D} \ctb{D}.
+    \]
+    A morphism of meromorphic connections is an $\sO_D[x^{-1}]$-linear map between the sheaves which is compatible with the connections.
+    A meromorphic connection $(\sheaf M, \nabla)$ is \emph{regular} (or \emph{has regular singularities}) if there exists a finitely generated $\sO_D$-submodule $\sheaf L$ of $\sheaf M$ such that $x\nabla(\sheaf L) \subseteq \sheaf L \otimes_{\sO_D} \ctb{D}$.
+    One calls $\sheaf L$ a \emph{lattice} of $\sheaf M$.
+\end{Definition}
+
+\begin{Exercise}
+    Show that equivalently one can define meromorphic connections as $\sO_D$-vector bundles $\sheaf M$ together with a connection $\sheaf M \to \sheaf M \otimes_{\sO_D} \ctb{D}[x^{-1}]$.
+    Show that in this formulation a meromorphic connection $\sheaf M$ is regular if and only if it is isomorphic to a meromorphic connection $\sheaf M' \to \sheaf M' \otimes_{\sO_D} \ctb{D,\log}$.
+\end{Exercise}
+
+\begin{Theorem}
+    Restriction to $D^*$ gives an equivalence between meromorphic connections with regular singularities on $D$ an integrable connections on $D^*$.
+\end{Theorem}
+
+Let us return to the algebraic case and consider a smooth algebraic curve $C$
+Let $p  \in C$ be any point and denote by $K_{C,p}$ the quotient field of $\sO_{C,p}$.
+An \emph{(algebraic) meromorphic connection} at $p$ is a finite dimensional $K_{C,p}$-module $M$ with a map
+\[
+    \nabla \colon M \to M \otimes_{\sO_{C,p}} \ctb{C,p} \cong M \otimes_{K_{C,p}} (\ctb{C,p} \otimes_{\sO_{C,p}} K_{C,p})
+\]
+satisfying the Leibniz rule.
+We remark that any connection on a curve is automatically integrable.
+Such a meromorphic connection is \emph{regular} if it admits a \emph{lattice}, i.e.~a finitely generated $\sO_{C,p}$-submodule $L$ of $M$ such that $M = K_{C,p}L$ and $x\nabla(L) \subseteq \ctb{C,p} \otimes_{\sO{C,p}} L$ for some (and hence any) local parameter $x$ at $p$.
+
+\begin{Definition}
+    Let $j\colon C \hookrightarrow \overline C$ be an open immersion with $\overline C$ a smooth projective curve.
+    An integrable connection $\sheaf M$ on $C$ is \emph{regular} if $j_\bullet \sheaf M$ is a regular meromorphic connection at each point of $\overline C \setminus p$.
+\end{Definition}
+
+Let us unpack this: if $\sheaf M$ is locally free over $\sO_C$, then $j_*\sheaf M$ is locally free over $j_*\sO_C$.
+Hence $(j_*\sheaf M)_p$ is a finite dimensional (free) module $K_{\overline C,p} \cong (j_*\sO_C)_p$.
+Since $j_*\sheaf M$ is a $\sD_{\overline C}$-module, $(j_*\sheaf M)_p$ is naturally endowed with a meromorphic connection.
+
+\begin{Definition}
+    An integrable connection $\sheaf M$ on a smooth variety $X$ is \emph{regular}, if for any for any morphism $i_C\colon C \to X$ from a smooth algebraic curve $C$ to $X$ the induced connection $i_C^*\sheaf M$ on $C$ is regular in the above sense.
+\end{Definition}
+
+A theorem of Deligne lets us reformulate regularity without having to test on curves.
+For this let us consider an open immersion $j\colon X \hookrightarrow \overline X$ with $\overline X$ smooth projective and $D = \overline X \setminus X$ a normal crossing divisor.
+Let $\sheaf I$ be the defining ideal of $D$ (with the reduced structure).
+Consider the sheaf
+\[
+    \tb{X}\langle D \rangle  = \{ \theta \in \tb{\overline X} : \theta \sheaf I \subseteq \sheaf I \}
+\]
+of vector fields tangent to $D$.
+Denote by $\sD_{\overline X}\langle D\rangle$ the subalgebra of $\sD_{\overline X}$ generated by $\sO_{\overline X}$ and $\tb{\overline X}\langle D\rangle$.
+If we pick local coordinates $\{x_i, \partial_i\}$ so that $D$ is given by $x_1\dotsc x_r = 0$, then $\tb{\overline X}\langle D\rangle$ is generated by $x_i\partial_i$ for $1 \le i \le r$ and $\partial_i$ for $i > r$. 
+
+\begin{Theorem}
+    In the above situation an integrable connection $\sheaf M$ on $X$ is regular if and only if the $\sD_{\overline X}$-module $j_\bullet M$ is a union of $\sO_{\overline X}$-coherent $\sD_{\overline X}\langle D\rangle$-submodules.
+\end{Theorem}
+
+\begin{Remark}
+    The pair $(\overline X, D)$ is an example of a \emph{smooth log variety}.
+    In this context $\sD_{\overline X}\langle D\rangle$ is called the sheaf of \emph{logarithmic differential operators} and an $\sO_{\overline X}$-coherent module over is an \emph{integrable log connection}.
+    The theorem then says that an integrable connection $\sheaf M$ on $X$ is regular if and only if $j_\bullet \sheaf M$ is a union of integrable log connections.
+
+    For example, let $\overline X = \ps 1$ and $D = \{0\}$.
+    Then $j_\bullet\sO_X = \sO_X[x^{-1}]$ is filtered by the integrable log connections $x^{-n}\sO_X$.
+\end{Remark}
+
+\begin{Theorem}[Deligne's Riemann--Hilbert Correspondence]
+    Let $X$ be a smooth algebraic variety.
+    Then the functors $\sheaf M \to \sheaf M^\an$ and $\Sol_{X^\an}$ induce equivalences of categories
+    \begin{align*}
+        \bigl\{ \textup{regular integrable connections on $X$}\bigr\}
+        & \cong
+        \bigl\{ \textup{integrable connections on $X^\an$}\bigr\}
+        \\&\cong
+        \bigl\{ \textup{local systems on $X^\an$} \bigr\}.
+    \end{align*}
+\end{Theorem}
+
+
+\subsection{Regular holonomic D-modules}
+
+Let us now extend the discussion of regularity to holonomic D-modules.
+
+\begin{Definition}
+    Let $X$ be a smooth algebraic variety.
+    A holonomic $\sD_X$-module is \emph{regular} if any composition factor of $\sheaf M$ is isomorphic to a minimal extension $L(Y,\sheaf N)$ from a regular integrable connection on a smooth locally closed subvariety $Y$ of $X$ such that the inclusion $Y \hookrightarrow X$ is affine.
+
+    We denote by $\catDModrh{X}$ the full subcategory of $\catDModhol{X}$ consisting of regular holonomic $\sD_X$-modules, and by $\catDbDModrh{X}$ the full subcategory of $\catDbDModhol{X}$ consisting of complexes with regular holonomic cohomology modules.
+\end{Definition}
+
+We note that if $X = C$ is a curve, then any $Y$ as in the definition above consists either of a collection of points or a dense open subset of $X$.
+Thus a holonomic D-module $\sheaf M$ on a smooth algebraic curve $C$ is regular if there exists a dense open subset $U$ of $C$ such that $\res{\sheaf M}U$ is a regular integrable connection.
+
+\begin{Theorem}[Curve testing criterion]
+    Let $X$ be a smooth algebraic variety and $\sheaf M \in \catDbDModhol{X}$.
+    The following conditions are equivalent.
+    \begin{enumerate}
+        \item $\sheaf M$ is regular holonomic.
+        \item For every locally closed embedding $i_C\colon C \hookrightarrow X$ of a smooth algebraic curve $C$ the restriction $i_C^!\sheaf M$ is regular holonomic.
+        \item For every morphism $f\colon C \hookrightarrow X$ from a smooth algebraic curve $C$ the pullback $f^!\sheaf M$ is regular holonomic.
+    \end{enumerate}
+\end{Theorem}
+
+\begin{Theorem}
+    Let $f\colon X \to Y$ be a morphism of smooth varieties.
+    The subcategory of regular holonomic modules is preserved by $f^!$, $f^\bullet$, $f_\bullet$, $f_!$ and $\DD$.
+\end{Theorem}
+
+\begin{Theorem}
+    Let $f\colon X \to Y$ be a morphism of smooth varieties.
+    The de Rham functor commutes with by $f^!$, $f^\bullet$, $f_\bullet$, $f_!$ and $\DD$.
+\end{Theorem}
+
+\begin{proof}[Idea of proof]
+    The remaining difficult step is showing that $f_\bullet$ commutes with $\DR$ for open embeddings.
+    In this case one uses a decomposition series for the module and Deligne's Riemann--Hilbert correspondence.
+\end{proof}
+
+\begin{Theorem}[Riemann--Hilbert correspondence for algebraic D-modules]
+    For a smooth algebraic variety the $X$ the de Rham functor
+    \[
+        \DR_X\colon \catDbDModrh{X} \to \catDbConstr{X}
+    \]
+    is an equivalence of categories.
+\end{Theorem}
+
+\begin{Remark}
+    An analogous statement holds in the analytic context.
+    However, the definition of regularity for analytic D-modules is different.
+\end{Remark}
+
+
+\iffalse
 
 \begin{itemize}
-    \item Definition
-    \item Preserved by functors
-\end{itemize}
-
-\section{Riemann--Hilbert correspondence}
-
-\begin{itemize}
-    \item Statement
     \item Outline of proof in the algebraic setting
     \item Perverse sheaves
 \end{itemize}
