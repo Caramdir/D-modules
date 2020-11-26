@@ -1973,7 +1973,7 @@ Thus we need to work around, and somehow replace $j_!$ with some proper pushforw
     Thus we proceed by noetherian induction: given an open dense subset $U$ of $X$ such that $\DR_U(\res{\sheaf M}U) \in \catDbConstr{U}$, we have to show that there exists an open dense subset $V$ of some irreducible component of $X \setminus U$ such that $\DR_{U\cup V}(\res{\sheaf M}{U \cup V}) \in \catDbConstr{U \cup V}$.
 
     The de Rham functor commutes with taking \'etale coverings.
-    Thus we can assume that $X$ is an open subset of $\as n$, $X \setminus U = X \cap \as {n-k}$ and $T = X \cap \as {n-k}$ dense is $\as n-k$.
+    Thus we can assume that $X$ is an open subset of $\as n$, $X \setminus U = X \cap \as {n-k}$ and $T = X \cap \as {n-k}$ is dense in $\as {n-k}$.
     By shrinking $X$ if necessary, we can further assume that $X$ is an open subset of $\as k \times T$.
 
     Consider now $\as k$ as an open subset of $\ps k$.
@@ -1983,7 +1983,7 @@ Thus we need to work around, and somehow replace $j_!$ with some proper pushforw
         \quad\text{and}\quad
         j_U\colon U \hookrightarrow \ps k \times T
     \]
-    Let $\sheaf N$ be some holonomic extension of $\sheaf M$ to $\ps k \times T$ (e.g.~$\sheaf N = j_\bullet \sheaf M$) and set $\sheaf F = \DR_{\ps k \times T}(\sheaf N)$.
+    Let $\sheaf N$ be some holonomic extension of $\sheaf M$ to $\ps k \times T$ (e.g.~$\sheaf N = j_{X,\bullet} \sheaf M$) and set $\sheaf F = \DR_{\ps k \times T}(\sheaf N)$.
     Let $S = \ps k \times T \setminus X$ be the complement of $X$ and consider the closed embeddings
     \[
         i_S\colon S \hookrightarrow \ps k \times T
@@ -2099,7 +2099,7 @@ We also have the space of meromorphic 1-forms $\ctb{X}[x^{-1}]$ and its submodul
         \nabla\colon \sheaf M \to \sheaf M \otimes_{\sO_D[x^{-1}]} \ctb D[x^{-1}] \cong \sheaf M \otimes_{\sO_D} \ctb{D}.
     \]
     A morphism of meromorphic connections is an $\sO_D[x^{-1}]$-linear map between the sheaves which is compatible with the connections.
-    A meromorphic connection $(\sheaf M, \nabla)$ is \emph{regular} (or \emph{has regular singularities}) if there exists a finitely generated $\sO_D$-submodule $\sheaf L$ of $\sheaf M$ such that $x\nabla(\sheaf L) \subseteq \sheaf L \otimes_{\sO_D} \ctb{D}$.
+    A meromorphic connection $(\sheaf M, \nabla)$ is \emph{regular} (or \emph{has regular singularities}) if there exists a finitely generated $\sO_D$-submodule $\sheaf L$ of $\sheaf M$ such that $x\nabla(\sheaf L) \subseteq \sheaf L \otimes_{\sO_D} \ctb{D}$ and $\sheaf L$ generates $\sheaf M$ over $\sO_X[x^{-1}]$.
     One calls $\sheaf L$ a \emph{lattice} of $\sheaf M$.
 \end{Definition}
 
@@ -2172,6 +2172,9 @@ If we pick local coordinates $\{x_i, \partial_i\}$ so that $D$ is given by $x_1\
 \end{Theorem}
 
 
+\iffalse
+
+
 \subsection{Regular holonomic D-modules}
 
 Let us now extend the discussion of regularity to holonomic D-modules.
@@ -2223,9 +2226,6 @@ Thus a holonomic D-module $\sheaf M$ on a smooth algebraic curve $C$ is regular 
     An analogous statement holds in the analytic context.
     However, the definition of regularity for analytic D-modules is different.
 \end{Remark}
-
-
-\iffalse
 
 \begin{itemize}
     \item Outline of proof in the algebraic setting
