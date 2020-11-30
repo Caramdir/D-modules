@@ -345,7 +345,7 @@ For $\sheaf M \in \catDMod{X}$, $\sheaf N \in \catDMod{Y}$ define
 The underlying $\sO_{X \times Y}$ of $\sheaf M \boxtimes \sheaf N$ is the same as the $\sO$-module box product of $\sheaf M$ and $\sheaf N$.
 As $\boxtimes$ is exact in both arguments, it immediately extends to the derived categories.
 
-\begin{Lemma}
+\begin{Lemma}\label{lem:tensor_and_boxtensor}
     Let $\sheaf M, \sheaf N \in \catDbDMod{X}$.
     \begin{enumerate}
         \item Denote by $\Delta\colon X \to X \times X$ the diagonal morphism.
@@ -1705,7 +1705,7 @@ We note that $i_{!\bullet}\sheaf M$ is holonomic.
 
 \section{Analytic D-modules associated to algebraic D-modules}
 
-Recall from Example~\label{ex:sol_fct} that D-modules \enquote{know} about solutions to differential equations.
+Recall from Example~\ref{ex:sol_fct} that D-modules \enquote{know} about solutions to differential equations.
 Fox example, given a differential operator $P \in \sD_X$, then $ \Hom_{\sD_X}(\sD_X/P\sD_X,\, \sO_X) = \{ f \in \sO_X : Pf = 0 \}$.
 
 Consider now $X = \as1$ and $P = \lambda\frac{\partial}{\partial x} -1$.
@@ -2159,7 +2159,7 @@ If we pick local coordinates $\{x_i, \partial_i\}$ so that $D$ is given by $x_1\
     Then $j_\bullet\sO_X = \sO_X[x^{-1}]$ is filtered by the integrable log connections $x^{-n}\sO_X$.
 \end{Remark}
 
-\begin{Theorem}[Deligne's Riemann--Hilbert Correspondence]
+\begin{Theorem}[Deligne's Riemann--Hilbert Correspondence]\label{thm:Deligne_RH}
     Let $X$ be a smooth algebraic variety.
     Then the functors $\sheaf M \to \sheaf M^\an$ and $\Sol_{X^\an}$ induce equivalences of categories
     \begin{align*}
@@ -2170,9 +2170,6 @@ If we pick local coordinates $\{x_i, \partial_i\}$ so that $D$ is given by $x_1\
         \bigl\{ \textup{local systems on $X^\an$} \bigr\}.
     \end{align*}
 \end{Theorem}
-
-
-\iffalse
 
 
 \subsection{Regular holonomic D-modules}
@@ -2204,14 +2201,14 @@ Thus a holonomic D-module $\sheaf M$ on a smooth algebraic curve $C$ is regular 
     The subcategory of regular holonomic modules is preserved by $f^!$, $f^\bullet$, $f_\bullet$, $f_!$ and $\DD$.
 \end{Theorem}
 
-\begin{Theorem}
+\begin{Theorem}\label{thm:DR_commutes_with_functors}
     Let $f\colon X \to Y$ be a morphism of smooth varieties.
     The de Rham functor commutes with by $f^!$, $f^\bullet$, $f_\bullet$, $f_!$ and $\DD$.
 \end{Theorem}
 
 \begin{proof}[Idea of proof]
     The remaining difficult step is showing that $f_\bullet$ commutes with $\DR$ for open embeddings.
-    In this case one uses a decomposition series for the module and Deligne's Riemann--Hilbert correspondence.
+    In this case one uses a decomposition series for the module and (some lemmas leading to) Deligne's Riemann--Hilbert correspondence.
 \end{proof}
 
 \begin{Theorem}[Riemann--Hilbert correspondence for algebraic D-modules]
@@ -2227,12 +2224,120 @@ Thus a holonomic D-module $\sheaf M$ on a smooth algebraic curve $C$ is regular 
     However, the definition of regularity for analytic D-modules is different.
 \end{Remark}
 
-\begin{itemize}
-    \item Outline of proof in the algebraic setting
-    \item Perverse sheaves
-\end{itemize}
+\begin{proof}[Sketch of proof]
+    We have to prove that the functor $\DR_X$ is fully faithful and essentially surjective.
+    For the former, we will actually prove that there exists a morphism
+    \begin{equation}\label{eq:RH_ff}
+        \RHom_{\sD_X}(\sheaf M,\, \sheaf N) \cong \RHom_{\CC_{X^\an}}(\DR_X \sheaf M,\, \DR_X \sheaf N)
+    \end{equation}
+    for any $\sheaf M, \sheaf N \in \catDbDModrh{X}$.
+    Let $p\colon X \to \pt$ be the structure map and $\Delta\colon X \times X \to X$ the diagonal.
+    By Lemmas~\ref{lem:hom-via-dual} and~\ref{lem:tensor_and_boxtensor} we have
+    \[
+        \RHom_{\sD_X}(\sheaf M,\, \sheaf N) \cong
+        p_\bullet(\DD_X \sheaf M \Lotimes_{\sO_X} \sheaf N)[-\dim X] \cong
+        p_\bullet\Delta^!(\DD_X \sheaf M \boxtimes \sheaf N).
+    \]
+    Similarly, one has
+    \[
+        \RHom_{\CC_{X^\an}}(\DR_X\sheaf M,\, \DR_X\sheaf N) \cong
+        \RR p_* \Delta^! (\topDD_X \DR_X\sheaf M \boxtimes \DR_X\sheaf N).
+    \]
+    The isomorphism~\eqref{eq:RH_ff} now follows from Theorem~\ref{thm:DR_commutes_with_functors}.
+    We remark however, that this does not prove that the isomorphism is actually the one induced by $\DR_X$.
 
-\fi
+    To check essential surjectivity, it suffices to show that there exists a set of generators for the triangulated category $\catDbConstr{X}$ lying in the image of $\DR_X$.
+    We pick the generators $\RR i_*\sheaf L$ for $i\colon Z \hookrightarrow X$ an embedding of a locally closed smooth subvariety $Z$ of $X$ and $\sheaf L$ a local system on $Z^\an$.
+    The fact that these are in the image is then guaranteed by Deligne's Riemann--Hilbert correspondence, Theorem~\ref{thm:Deligne_RH}.
+\end{proof}
+
+\subsection{Perverse sheaves}
+
+One notes that the de Rham and solution functors do not restrict to an equivalence between the \emph{abelian} categories of regular holonomic D-modules and constructible sheaves.
+Indeed, if $X = \as 1$, then $\DR(\sO_X) \cong \CC_{X^\an}[1]$, while $\DR(\sD_X/\sD_Xx) \cong \CC_0$.
+On the other hand, the image of $\catDModrh{X}$ under $\DR_X$ is clearly \emph{some} abelian subcategory of $\catDbConstr{X}$.
+In order to give an intrinsic definition of this subcategory, it is useful to introduce t-structures.
+
+\begin{Definition}
+    Let $\cat T$ be any triangulated category.
+    A \emph{t-structure} on $\cat T$ consists of two full subcategories $\cat T^{\le 0}$ and $\cat T^{\ge 0}$ satisfying the following conditions:
+    \begin{enumerate}
+        \item $\cat T^{\le 0}[1] \subseteq \cat T^{\ge 0}$ and $\cat T^{\ge 0}[-1] \subseteq \cat T^{\ge 0}$.
+        \item $\Hom_{\cat T}(\cat T^{\le 0}, \, \cat T^{\ge 0}[-1]) = 0$.
+        \item For any $X \in \cat T$ there exists a distinguished triangle
+            \[
+                X_{\le 0} \to X \to X_{\ge 1}
+            \]
+            in $\cat T$ with $X_{\le 0} \in \cat T^{\le 0}$ and $X_{\ge 1} \in \cat T^{\ge 0}[-1]$.
+    \end{enumerate}
+    For convenience, we set $\cat T^{\le n} = \cat T^{\le 0}[-n]$ and $\cat T^{\ge n} = \cat T^{\ge 0}[-n]$.
+\end{Definition}
+
+\begin{Example}
+    If $\cat A$ is an abelian category and $\cat T = \catD{\cat A}$ its derived category, we obtain a t-structure by setting
+    \begin{align*}
+        \cat T^{\le 0} & = \bigl\{ X \in \cat T : H^n(X) = 0 \text{ for } n > 0 \bigr\} \\
+        \cat T^{\ge 0} & = \bigl\{ X \in \cat T : H^n(X) = 0 \text{ for } n < 0 \bigr\} 
+    \end{align*}
+    This is called the \emph{standard t-structure} of a derived category.
+    Any $X \in \cat T$ fits into the distinguished triangle
+    \[
+        \tau_{\le 0} X \to X \to \tau_{\ge 1} X.
+        \qedhere
+    \]
+\end{Example}
+
+\begin{Theorem}
+    Let $T$ be a triangulated category with t-structure $(T^{\le 0}, T^{\ge 0})$.
+    \begin{enumerate}
+        \item The inclusion $\cat T^{\le n} \to \cat T$ has a right adjoint $\tau_{\le n}\colon \cat T \to \cat T^{\le n}$.
+        \item The inclusion $\cat T^{\ge n} \to \cat T$ has a left adjoint $\tau_{\ge n}\colon \cat T \to \cat T^{\ge n}$.
+        \item Any $X \in \cat T$ fits into a distinguished triangle
+            \[
+                \tau_{\le 0} X \to X \to \tau_{\ge 1} X,
+            \]
+            where the morphisms are given by the adjunction maps.
+            The functors $\tau_{\le n}$ and $\tau_{\ge n}$ are called \emph{truncation functors}.
+        \item The \emph{heart} $\cat T^\heartsuit = \cat T^{\le 0} \cap \cat T^{\ge 0}$ is an abelian category.
+        \item The functor $\tau_{\le 0} \circ \tau_{\ge 0}$ is a cohomological functor
+            \[
+                H^0\colon \cat T \to \cat C,
+            \]
+            i.e.~upon setting $H^n(X) = H^0(X[n])$ it sends distinguished triangles to long exact sequences.
+            It is isomorphic to $\tau_{\ge 0} \circ \tau_{\le 0}$.
+    \end{enumerate}
+\end{Theorem}
+
+\begin{Definition}
+    Define full subcategories of $\catDbConstr{X}$ by
+    \begin{align*}
+        \catDPerv{\le 0}{X} =& \bigl\{ \sheaf F \in \catDbConstr{X} : \dim \supp H^j(\sheaf F) \le -j \text{ for all } j \in \ZZ\}, \\
+        \catDPerv{\ge 0}{X} =& \bigl\{ \sheaf F \in \catDbConstr{X} : \dim \supp H^j(\topDD\sheaf F) \le -j \text{ for all } j \in \ZZ\}.
+    \end{align*}
+\end{Definition}
+
+\begin{Remark}
+    There are various important equivalent characterizations of these subcategories, see in particular \cite[Proposition~8.1.22]{HottaTakeuchiTanisaki:2008:DModulesPerverseSheavesRepresentationTheory}.
+\end{Remark}
+
+\begin{Theorem}
+    The pair $(\catDPerv{\le 0}{X},\, \catDPerv{\ge 0}{X})$ forms a t-structure on $\catDbConstr{X}$.
+    It is called the \emph{(middle) perverse t-structure}.
+    Objects in the heart $\catPerv{X} = \catDPerv{\le 0}{X} \cap \catDPerv{\ge 0}{X}$ are called \emph{perverse sheaves}.
+\end{Theorem}
+
+We will not go further into the theory of perverse sheaves.
+For details see \cite[Chapter~8]{HottaTakeuchiTanisaki:2008:DModulesPerverseSheavesRepresentationTheory} and the original article \cite{BBD}.
+In particular, one has a good description of indecomposable objects (so called \emph{intersection cohomology complexes}) and their behaviour under direct image (the \emph{decomposition theorem}).
+
+\begin{Theorem}
+    The functor $\DR_X$ matches the standard t-structure on $\catDbDModrh{X}$ with the perverse t-structure on $\catDbConstr{X}$.
+    In particular:
+    \[
+        \DR_X\colon \catDModrh{X} \isoto \catPerv{X}.
+    \]
+\end{Theorem}
+
 \appendix
 
 \section{Derived categories}
