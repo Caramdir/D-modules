@@ -2192,7 +2192,7 @@ Thus a holonomic D-module $\sheaf M$ on a smooth algebraic curve $C$ is regular 
     \begin{enumerate}
         \item $\sheaf M$ is regular holonomic.
         \item For every locally closed embedding $i_C\colon C \hookrightarrow X$ of a smooth algebraic curve $C$ the restriction $i_C^!\sheaf M$ is regular holonomic.
-        \item For every morphism $f\colon C \hookrightarrow X$ from a smooth algebraic curve $C$ the pullback $f^!\sheaf M$ is regular holonomic.
+        \item For every morphism $f\colon C \to X$ from a smooth algebraic curve $C$ the pullback $f^!\sheaf M$ is regular holonomic.
     \end{enumerate}
 \end{Theorem}
 
@@ -2288,7 +2288,7 @@ In order to give an intrinsic definition of this subcategory, it is useful to in
 \end{Example}
 
 \begin{Theorem}
-    Let $T$ be a triangulated category with t-structure $(T^{\le 0}, T^{\ge 0})$.
+    Let $\cat T$ be a triangulated category with t-structure $(\cat T^{\le 0},\, \cat T^{\ge 0})$.
     \begin{enumerate}
         \item The inclusion $\cat T^{\le n} \to \cat T$ has a right adjoint $\tau_{\le n}\colon \cat T \to \cat T^{\le n}$.
         \item The inclusion $\cat T^{\ge n} \to \cat T$ has a left adjoint $\tau_{\ge n}\colon \cat T \to \cat T^{\ge n}$.
@@ -2301,7 +2301,7 @@ In order to give an intrinsic definition of this subcategory, it is useful to in
         \item The \emph{heart} $\cat T^\heartsuit = \cat T^{\le 0} \cap \cat T^{\ge 0}$ is an abelian category.
         \item The functor $\tau_{\le 0} \circ \tau_{\ge 0}$ is a cohomological functor
             \[
-                H^0\colon \cat T \to \cat C,
+                H^0\colon \cat T \to \cat T^\heartsuit,
             \]
             i.e.~upon setting $H^n(X) = H^0(X[n])$ it sends distinguished triangles to long exact sequences.
             It is isomorphic to $\tau_{\ge 0} \circ \tau_{\le 0}$.
