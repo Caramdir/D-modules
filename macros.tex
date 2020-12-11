@@ -61,7 +61,7 @@
 \newcommand{\canon}{\omega}             % canonical line bundle
 \newcommand\res[2]{\mathchoice{\left.#1\right|_{#2}}{#1|_{#2}}{#1|_{#2}}{#1|_{#2}}}     % restrictions
 \newcommand\sheafHom{\sheaf{H\mkern-1.2mu o\mkern-3mu m}}
-\newcommand\sheafEnd{\sheaf{E\mkern-1.2mu n\mkern-2mu d}}
+\newcommand\sheafEnd{\sheaf{E\mkern-2.5mu n\mkern-2mu d}}
 \newcommand\sheafExt{\sheaf{E\mkern-1.2mu x\mkern-0.8mu t}}
 \DeclareMathOperator\RsheafHom{\RR \sheafHom}
 \let\sheafRHom\RsheafHom
@@ -129,8 +129,9 @@
 \newcommand\cocolon{%                   % colon on the right side (i.e. for an adjunction)
     \nobreak \mskip 6muplus1mu \mathpunct {}\nonscript \mkern -\thinmuskip{:}\mskip 2mu\relax%
 }
+\DeclareMathOperator\ord{ord}
 \newcommand{\stackcite}[1]{\cite[\href{http://stacks.math.columbia.edu/tag/#1}{Tag~\textsc{\MakeLowercase{#1}}}]{stacks-project}}
-\newcommand{\RomanNum}[1]{\textsc{\MakeLowercase{ii}}}
+\newcommand{\RomanNum}[1]{\textsc{\MakeLowercase{#1}}}
 % ----
 
 %
